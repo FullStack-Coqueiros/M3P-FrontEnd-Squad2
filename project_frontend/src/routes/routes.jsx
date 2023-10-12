@@ -1,21 +1,15 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
-
-
+// routes.jsx
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CadastroExames from "../pages/CadastroExames/CadastroExames";
 
 function AppRoutes() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<PageBase />}>
-                    {/* <Route index element={ <Home /> }></Route>
-                    <Route path="/sobre" element={ <Sobre /> }></Route>
-                    <Route path="/projetos" element={ <Projetos /> }></Route>
-                    <Route path="/contatos" element={ <Contatos /> }></Route>
-                    <Route path="*" element={ <Page404 /> }></Route> */}
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    )
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/cadastro-exames" element={<CadastroExames />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default AppRoutes
+export default AppRoutes;
