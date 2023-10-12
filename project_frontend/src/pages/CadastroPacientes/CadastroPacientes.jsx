@@ -1,11 +1,11 @@
 import React from 'react'
 
- function CadastroExames() {
+ function CadastroPacientes() {
   return (
     <div>
-      <div>Olá eu sou cadastro exames</div>
+      <div>Olá eu sou cadastro de pacientes.</div>
     </div>
   )
 }
 
-export default CadastroExames;
+export default CadastroPacientes;
