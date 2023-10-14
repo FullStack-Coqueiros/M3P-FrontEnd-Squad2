@@ -1,11 +1,8 @@
-/* CadastroExames.css */
 
-/* Adiciona um contorno vermelho para realçar os campos com erro */
 .form-group.error {
     border: 1px solid red;
   }
   
-  /* Estilo para mensagens de erro */
   .error-message {
     color: red;
     font-size: 12px;
