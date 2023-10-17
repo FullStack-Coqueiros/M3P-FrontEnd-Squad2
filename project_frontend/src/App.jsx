@@ -8,6 +8,7 @@ import './App.css'
 import Login from './pages/Login/Login'
 import ResetSenha from './pages/Reset/RecSenha'
 import CriarConta from './pages/Conta/criarConta'
+import CadastroDieta from './pages/CadastroDieta/CadastroDieta'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path='/resetsenha' element={<ResetSenha />} />
               <Route path='/criarconta' element={<CriarConta />} />
+              <Route path='/cadastrodieta' element={<CadastroDieta />} />
             </Routes>
           </Router>
         </main>
