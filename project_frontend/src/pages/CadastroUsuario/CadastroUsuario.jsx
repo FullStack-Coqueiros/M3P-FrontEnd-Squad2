@@ -7,8 +7,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { Link } from "react-router-dom";
 
 
-//validar email, telefone e cpf
-
 function CadastroUsuario() {
 
   const { handleAdicionarUsuario } = useAppContext();
@@ -38,7 +36,7 @@ function CadastroUsuario() {
       <Container>
 
 
-        <h1>INFORME OS CAMPOS PARA CADASTRAR Usuário</h1>
+        <h1>INFORME OS CAMPOS PARA CADASTRAR USUÁRIO</h1>
         <section className="form-med">
           <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -50,13 +48,13 @@ function CadastroUsuario() {
 
               <Form.Group name="cpf">
                 <Form.Label>CPF</Form.Label>
-                <Form.Control type="" placeholder="CPF" {...register("cpf", { required: true })} />
+                <Form.Control type="" placeholder="CPF" {...register("cpf", { required: true, pattern: { value: /^(\d{3}\.){3}\d{3}\-\d{2}$/} })} />
                 {errors.cpf && <span className="error-message">Campo Obrigatório</span>}
               </Form.Group> 
 
               <Form.Group name="telefone">
                 <Form.Label>Telefone:</Form.Label>
-                <Form.Control type="" placeholder="Telefone" {...register("telefone", { required: true })} />
+                <Form.Control type="" placeholder="Telefone" {...register("telefone", { required: true, pattern: { value: /^\(\d{2}\)\s\d{1}\s\d{4}\s-\s\d{4}/g} })} />
                 {errors.telefone && <span className="error-message">Campo Obrigatório</span>}
               </Form.Group> 
 
@@ -73,7 +71,7 @@ function CadastroUsuario() {
 
               <Form.Group name="email">
                 <Form.Label>Email:</Form.Label>
-                <Form.Control type="email" placeholder="Digite seu email" {...register("Email", { required: true })} />
+                <Form.Control type="email" placeholder="Digite seu email" {...register("Email", { required: true, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i }})} />
                 {errors.email && <span className="error-message">Campo Obrigatório</span>}
               </Form.Group>
 
