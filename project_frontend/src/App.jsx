@@ -9,6 +9,7 @@ import Login from './pages/Login/Login'
 import ResetSenha from './pages/Reset/RecSenha'
 import CriarConta from './pages/Conta/criarConta'
 import CadastroDieta from './pages/CadastroDieta/CadastroDieta'
+import CadastroUsuario from './pages/CadastroUsuario/CadastroUsuario'
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
               <Route path='/resetsenha' element={<ResetSenha />} />
               <Route path='/criarconta' element={<CriarConta />} />
               <Route path='/cadastrodieta' element={<CadastroDieta />} />
+              <Route path='/cadastrousuario' element={<CadastroUsuario />} />
             </Routes>
           </Router>
         </main>
