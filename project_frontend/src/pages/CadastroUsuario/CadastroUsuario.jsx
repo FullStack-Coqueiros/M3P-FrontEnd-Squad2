@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { useAppContext } from "../contexts/useAppContext";
-import Sidebar from "../components/Sidebar";
+import { useAppContext } from "../../context/useAppContext";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Sidebar from "../../components/SidebarComponents/Sidebar";
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from "react-router-dom";
 
@@ -32,8 +33,9 @@ function CadastroUsuario() {
 
   return (
     <div>
-      <Sidebar />
+    <Sidebar />
       <Container>
+      
 
 
         <h1>INFORME OS CAMPOS PARA CADASTRAR USUÁRIO</h1>
