@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from 'uuid';
 import { useAppContext } from "../../context/useAppContext";
 import Sidebar from "../../components/SidebarComponents/Sidebar"
-// import "./styles.css"
+import "./styles.css"
 
 function CadastroExames() {
   const { handleAdicionarExame, handleDeletarExame, pacientes, setPacientes, carregarPacientes } = useAppContext();
@@ -91,12 +91,17 @@ function CadastroExames() {
                   <Form.Control
                     type="text"
                     placeholder="Digite o nome do exame"
-                    {...register("exame", { required: true })}
+                    {...register("exame", {
+                      required: true,
+                      minLength: 8,
+                      maxLength: 64,
+                    })}
                   />
                   {errors.exame && (
-                    <span className="error-message">Campo Obrigatório</span>
+                    <span className="error-message">Campo Obrigatório com 8 a 64 caracteres</span>
                   )}
                 </Form.Group>
+
               </Col>
               <Col>
                 <Form.Group name="Tipo">
@@ -142,19 +147,7 @@ function CadastroExames() {
             </Row>
 
             <Row>
-              <Col>
-                <Form.Group name="Laboratorio">
-                  <Form.Label>Laboratório:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Digite o nome do laboratório"
-                    {...register("laboratorio", { required: true })}
-                  />
-                  {errors.laboratorio && (
-                    <span className="error-message">Campo Obrigatório</span>
-                  )}
-                </Form.Group>
-              </Col>
+
               <Col>
                 <Form.Group name="Documento">
                   <Form.Label>URL do Documento:</Form.Label>
@@ -177,6 +170,14 @@ function CadastroExames() {
                     <span className="error-message">Campo Obrigatório</span>
                   )}
                 </Form.Group>
+                <Form.Group name="statusSistema">
+                  <Form.Check
+                    type="checkbox"
+                    label="Status do Sistema"
+                    {...register("statusSistema", { required: true })}
+                  />
+                </Form.Group>
+
               </Col>
             </Row>
 
