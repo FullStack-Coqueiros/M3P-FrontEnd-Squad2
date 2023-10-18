@@ -9,6 +9,11 @@ const AppProvider = ({ children }) => {
   const adicionarExame = (novoExame) => {
     setExames([...exames, novoExame]);
   };
+  const deletarExame = (exameId) => {
+    // Filtra os exames para remover o exame com o ID correspondente
+    const novosExames = exames.filter((exame) => exame.id !== exameId);
+    setExames(novosExames);
+  };
 
 
   const carregarPacientes = async () => {
@@ -45,6 +50,7 @@ return (
       pacientes,
       setPacientes,
       handleAdicionarExame: adicionarExame,
+      handleDeletarExame: deletarExame,
       carregarPacientes,
     }}
   >
