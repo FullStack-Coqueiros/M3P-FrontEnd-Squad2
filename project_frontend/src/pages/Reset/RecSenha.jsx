@@ -29,7 +29,9 @@ function RecuperarSenha() {
 
                     <Form.Group className="col-8" controlid="Email">
                         <Form.Label>E-mail:</Form.Label>
-                        <Form.Control type="email" placeholder="Digite seu email" {...register("Email", { required: true })} />
+                        {/* <Form.Control type="email" placeholder="Digite seu email" {...register("Email", { required: true })} /> */}
+                        <Form.Control type="email" placeholder="Digite seu email" {...register("email", { required: true })} />
+
                         {errors.email && <span>Campo Obrigatório</span>}
 
                     </Form.Group>
