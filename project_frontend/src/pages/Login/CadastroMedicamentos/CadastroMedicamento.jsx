@@ -197,7 +197,8 @@ function CadastroMedicamentos() {
         </>
 
     );
+    
 }
 
 
-export default CadastroMedicamentos;
+export default CadastroMedicamentos; 
