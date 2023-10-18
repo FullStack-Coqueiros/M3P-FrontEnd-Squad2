@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from 'uuid';
-
 import { useAppContext } from "../../context/useAppContext";
-
-import "./styles.css"
+import Sidebar from "../../components/SidebarComponents/Sidebar"
+// import "./styles.css"
 
 function CadastroExames() {
-  const { handleAdicionarExame, pacientes, setPacientes, carregarPacientes } = useAppContext();
+  const { handleAdicionarExame, handleDeletarExame, pacientes, setPacientes, carregarPacientes } = useAppContext();
   const [isSaved, setIsSaved] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
@@ -41,12 +40,24 @@ function CadastroExames() {
     reset();
     // Imprimir os dados no console
     console.log('Dados do exame para o paciente:', exame);
+
+    const deletarExame = (exameId) => {
+
+      const exameParaDeletar = exames.find((exame) => exame.id === exameId);
+
+      if (exameParaDeletar) {
+        handleDeletarExame(exameId);
+      } else {
+        console.warn('Tentativa de deletar exame inexistente.');
+      }
+    };
+
   }
 
 
   return (
     <>
-
+      <Sidebar />
       <Container>
 
 
@@ -169,11 +180,13 @@ function CadastroExames() {
               </Col>
             </Row>
 
-            <div className="btn-section">
+            <div >
+              <Button className="btn-salvar" type="submit" > Salvar </Button>
+              {/* <Button className="btn-editar" type="button" disable={!handleAdicionarExame} > Editar </Button>
+        <Button className="btn-reset" type="reset" disabled={!handleDeletarExame}>Deletar</Button> */}
 
-              <Button className="btn-salvar" type="submit"  >
-                Salvar
-              </Button>
+
+
             </div>
           </form>
 
