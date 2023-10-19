@@ -11,7 +11,7 @@ import './styles.css'
 function Sidebar() {
   return (
     <div className="sidebar">
-      <img src="/src/assets/images/Logo.png" alt="Logo" />
+      <img className='logo2' src="/src/assets/images/Logo.png" alt="Logo" />
       <Link className="active" to="/Dashboard"><BsFillHouseAddFill />  HOME</Link>
       <Link to="/cadastrousuario" ><BsPersonPlus /> Cadastro Usuário </Link>
       <Link to="/CadastroExames" ><BsHeartPulse /> Cadastro Exames </Link>
