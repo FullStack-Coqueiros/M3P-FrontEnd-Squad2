@@ -14,6 +14,7 @@ import CadastroExames from './pages/CadastroExames/CadastroExames'
 import CadastroConsulta from './pages/CadastroConsulta/CadastroConsulta'
 import CadastroMedicamento from './pages/CadastroMedicamento/CadastroMedicamento'
 import CadastroExercicio from './pages/CadastroExercicio/CadastroExercicio'
+import CadastroPaciente from './pages/CadastroPaciente/CadastroPaciente'
 import ListaProntuario from './pages/ListaProntuario/ListaProntuario'
 import Prontuario from './pages/Prontuario/Prontuario'
 import Dashboard from './components/Dashboard/Dashboard'
@@ -31,6 +32,7 @@ function App() {
               <Route path='/criarconta' element={<CriarConta />} />
               <Route path='/cadastrodieta' element={<CadastroDieta />} />
               <Route path='/cadastrousuario' element={<CadastroUsuario />} />
+              <Route path='/cadastropaciente' element={<CadastroPaciente/>}/>
               <Route path='/CadastroExames' element={<CadastroExames />} />
               <Route path='/CadastroConsulta' element={<CadastroConsulta />} />
               <Route path='/CadastroMedicamento' element={<CadastroMedicamento />} />
