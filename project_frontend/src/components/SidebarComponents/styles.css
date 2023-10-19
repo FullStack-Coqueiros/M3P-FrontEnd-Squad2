@@ -1,7 +1,7 @@
 .sidebar {
     margin: 0;
     padding: 0;
-    width: 200px;
+    width: 218px;
     background-color: #f1f1f1;
     position: fixed;
     height: 100%;
@@ -9,34 +9,26 @@
     left: 0; 
   }
   
-  /* Sidebar links */
+/* Estilos para os links dentro da barra lateral */
   .sidebar a {
     display: block;
     color: black;
     padding: 16px;
     text-decoration: none;
   }
-  
-  /* Active/current link */
+/* Estilos para links ativos */
   .sidebar a.active {
-    background-color: #0423aa;
-    color: white;
+    background-color: #0a338b;
+    color: rgb(245, 233, 233);
   }
   
-  /* Links on mouse-over */
+/* Estilos para links quando o mouse está sobre eles */
   .sidebar a:hover:not(.active) {
-    background-color: #555;
+    background-color: #91a4b6;
     color: white;
   }
   
-  /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
-  div.content {
-    margin-left: 200px;
-    padding: 1px 16px;
-    height: 1000px;
-  }
-  
-  /* On screens that are less than 700px wide, make the sidebar into a topbar */
+/* Adicionando uma regra de mídia para telas menores que 700 pixels */
   @media screen and (max-width: 700px) {
     .sidebar {
       width: 100%;
@@ -47,10 +39,31 @@
     div.content {margin-left: 0;}
   }
   
-  /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+  /* Adicionando uma regra de mídia para telas menores que 400 pixels */
   @media screen and (max-width: 400px) {
     .sidebar a {
       text-align: center;
       float: none;
     }
   }
+
+/* styles.css */
+.logout-button {
+  margin-top: 350px; /* Adicione a margem superior desejada */
+  margin-left: 75px; /* Adicione a margem à esquerda */
+  display: flex; /* Para alinhar o ícone e o texto horizontalmente */
+  align-items: center; /* Para centralizar verticalmente */
+}
+
+.logout-button a {
+  display: flex; /* Para alinhar o ícone e o texto horizontalmente dentro do link */
+  align-items: center; /* Para centralizar verticalmente dentro do link */
+  padding: 8px 16px; /* Adicione algum preenchimento para tornar o botão mais bonito */
+  border-radius: 5px; /* Adicione bordas arredondadas */
+  text-decoration: none; /* Remova a sublinhado padrão do link */
+}
+
+.logout-button a:hover {
+  background-color: #007bff; /* Cor de fundo ao passar o mouse sobre o botão */
+  color: #fff; /* Cor do texto ao passar o mouse sobre o botão */
+}
