@@ -62,7 +62,16 @@
     }
   ],
   "exames": [
-  
+    {
+      "pacienteId": 1,
+      "exame": "Exame de Sangue",
+      "tipo": "Hemograma",
+      "dataExame": "2023-10-18",
+      "horaExame": "08:00",
+      "laboratorio": "Laboratório ABC",
+      "resultados": "Resultados do exame...",
+      "documento": "https://example.com/documento.pdf",
+      "statusSistema": true
+    }
   ]
-}
 
