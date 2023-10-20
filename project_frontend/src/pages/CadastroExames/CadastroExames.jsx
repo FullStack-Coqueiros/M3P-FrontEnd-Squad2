@@ -4,7 +4,10 @@ import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from 'uuid';
 import { useAppContext } from "../../context/useAppContext";
 import Sidebar from "../../components/SidebarComponents/Sidebar"
-// import "./styles.css"
+import "./styles.css"
+
+import dbJson from '../../../db.json';
+
 
 function CadastroExames() {
   const { handleAdicionarExame, handleDeletarExame, pacientes, setPacientes, carregarPacientes } = useAppContext();
@@ -32,7 +35,10 @@ function CadastroExames() {
       id: uuidv4(),
     };
 
-    handleAdicionarExame(exame);
+    // Adiciona o novo exame ao array de exames em dbJson
+    dbJson.exames = [...dbJson.exames, exame];
+
+
     setIsSaved(true);
     setShowSuccessAlert(true);
 
@@ -91,12 +97,17 @@ function CadastroExames() {
                   <Form.Control
                     type="text"
                     placeholder="Digite o nome do exame"
-                    {...register("exame", { required: true })}
+                    {...register("exame", {
+                      required: true,
+                      minLength: 8,
+                      maxLength: 64,
+                    })}
                   />
                   {errors.exame && (
-                    <span className="error-message">Campo Obrigatório</span>
+                    <span className="error-message">Campo Obrigatório com 8 a 64 caracteres</span>
                   )}
                 </Form.Group>
+
               </Col>
               <Col>
                 <Form.Group name="Tipo">
@@ -104,10 +115,14 @@ function CadastroExames() {
                   <Form.Control
                     type="text"
                     placeholder="Digite o tipo de exame"
-                    {...register("tipo", { required: true })}
+                    {...register("tipo", {
+                      required: true,
+                      minLength: 4,
+                      maxLength: 32,
+                    })}
                   />
                   {errors.tipo && (
-                    <span className="error-message">Campo Obrigatório</span>
+                    <span className="error-message">Campo Obrigatório com 4 a 32 caracteres</span>
                   )}
                 </Form.Group>
               </Col>
@@ -142,20 +157,22 @@ function CadastroExames() {
             </Row>
 
             <Row>
+
               <Col>
                 <Form.Group name="Laboratorio">
                   <Form.Label>Laboratório:</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Digite o nome do laboratório"
-                    {...register("laboratorio", { required: true })}
+                    placeholder="Digite o resultado do exame"
+                    {...register("resultados", {
+                      required: true, minLength: 16,
+                      maxLength: 1024,
+                    })}
                   />
-                  {errors.laboratorio && (
-                    <span className="error-message">Campo Obrigatório</span>
+                  {errors.resultados && (
+                    <span className="error-message">Campo Obrigatório com 16 a 1024 caracteres</span>
                   )}
                 </Form.Group>
-              </Col>
-              <Col>
                 <Form.Group name="Documento">
                   <Form.Label>URL do Documento:</Form.Label>
                   <Form.Control
@@ -166,17 +183,43 @@ function CadastroExames() {
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group name="Resultados">
+                <Form.Group name="Laboratorio">
                   <Form.Label>Laboratório:</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Digite ou carregue os resultados"
-                    {...register("resultados", { required: true })}
+                    placeholder="Digite nome do laboratório"
+                    {...register("laboratorio", {
+                      required: true, minLength: 4,
+                      maxLength: 32
+                    })}
                   />
-                  {errors.resultados && (
-                    <span className="error-message">Campo Obrigatório</span>
+                  {errors.laboratorio && (
+                    <span className="error-message">Campo Obrigatório com 4 a 32 caracteres</span>
                   )}
                 </Form.Group>
+                <Form.Group name="statusSistema">
+                  <Form.Label>Status do Sistema:</Form.Label>
+                  <div>
+                    <Form.Check
+                      type="radio"
+                      label="Ativo"
+                      value="Ativo"
+                      {...register("statusSistema", { required: "Selecione o status do sistema." })}
+                    />
+                    <Form.Check
+                      type="radio"
+                      label="Inativo"
+                      value="Inativo"
+                      {...register("statusSistema", { required: "Selecione o status do sistema." })}
+                    />
+                  </div>
+                  {errors.statusSistema && (
+                    <span className="error-message">{errors.statusSistema.message}</span>
+                  )}
+                </Form.Group>
+
+
+
               </Col>
             </Row>
 
