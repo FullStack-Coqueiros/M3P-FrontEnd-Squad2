@@ -6,7 +6,6 @@ import { useAppContext } from "../../context/useAppContext";
 import Sidebar from "../../components/SidebarComponents/Sidebar"
 import { URL_API } from "../../services";
 
-// import "./styles.css"
 
 function CadastroMedicamentos() {
     const { handleAdicionarMedicamento, handleDeletarMedicamento, pacientes, setPacientes, carregarPacientes } = useAppContext();
