@@ -5,6 +5,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <Link className="active" to="/Dashboard" >HOME</Link>
+      <Link to="/cadastropaciente" >Cadastro Paciente</Link>
       <Link to="/cadastrousuario" >Cadastro Usuário </Link>
       <Link to="/CadastroExames" >Cadastro Exames </Link>
       <Link to="/cadastrodieta" >Cadastro Dieta</Link>
