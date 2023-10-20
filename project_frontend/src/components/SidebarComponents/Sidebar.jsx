@@ -11,15 +11,16 @@ import './styles.css'
 function Sidebar() {
   return (
     <div className="sidebar">
-      <img className='logo2' src="/src/assets/images/Logo.png" alt="Logo" />
-      <Link className="active" to="/Dashboard"><BsFillHouseAddFill />  HOME</Link>
-      <Link to="/cadastrousuario" ><BsPersonPlus /> Cadastro Usuário </Link>
-      <Link to="/CadastroExames" ><BsHeartPulse /> Cadastro Exames </Link>
-      <Link to="/cadastrodieta" ><IoRestaurantOutline /> Cadastro Dieta</Link>
-      <Link to="/CadastroConsulta" ><GiStethoscope /> Cadastro Consulta </Link>
-      <Link to="/CadastroMedicamento" ><CiPill /> Cadastro Medicamento</Link>
-      <Link to="/CadastroExercicio" ><CiDumbbell />  Cadastro Exercicio </Link>
-      <Link to="/ListaProntuario" ><BsListCheck /> Lista Prontuario </Link>
+      <Link className="active" to="/Dashboard" >HOME</Link>
+      <Link to="/cadastropaciente" >Cadastro Paciente</Link>
+      <Link to="/cadastrousuario" >Cadastro Usuário </Link>
+      <Link to="/CadastroExames" >Cadastro Exames </Link>
+      <Link to="/cadastrodieta" >Cadastro Dieta</Link>
+      <Link to="/CadastroConsulta" >Cadastro Consulta </Link>
+      <Link to="/CadastroExames" >Cadastro Exames </Link>
+      <Link to="/CadastroMedicamento" >Cadastro Medicamento </Link>
+      <Link to="/CadastroExercicio" >Cadastro Exercicio </Link>
+      <Link to="/ListaProntuario" >Lista Prontuario </Link>
       <Link to="/Prontuario" > Prontuario </Link>
       <div className="logout-button">
         <Link to="/" className="logout-link">
