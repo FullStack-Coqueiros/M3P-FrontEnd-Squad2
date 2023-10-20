@@ -4,6 +4,7 @@ import {useForm} from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import {useAppContext} from "../../context/useAppContext";
 import Sidebar from "../../components/SidebarComponents/Sidebar";
+import { URL_API } from '../../services';
 
 
 function CadastroConsulta() {
@@ -16,7 +17,7 @@ function CadastroConsulta() {
   useEffect(() => {
     const fetchPacientes = async () => {
       try {
-        const response = await fetch('http://localhost:3000/pacientes');
+        const response = await fetch(`${URL_API}/pacientes`);
         const data = await response.json();
         setPacientes(data);
       } catch (error) {

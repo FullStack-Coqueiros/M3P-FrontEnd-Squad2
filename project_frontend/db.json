@@ -66,5 +66,20 @@
       "statusSistema": true
     }
   ],
-  "exames": []
+  "exames": [],
+  "medicamentos": [
+    {
+      "pacienteId": 1,
+      "medicamento": "dipirona",
+      "data": "2023-10-20",
+      "horario": "20:30",
+      "tipo": "Cápsula",
+      "quantidade": "2.00",
+      "dataExame": "2023-10-20",
+      "unidade": "Mgc",
+      "observações": "jbaodbaushcbssjiadvhsdhsdosidb",
+      "statusSistema": "ativo ",
+      "id": 2
+    }
+  ]
 }

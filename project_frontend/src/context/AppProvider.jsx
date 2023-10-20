@@ -1,14 +1,16 @@
 import React, { createContext, useEffect, useState } from 'react';
+import { URL_API } from '../services';
 
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [exames, setExames] = useState([]);
   const [pacientes, setPacientes] = useState([]);
+  const [medicamentos, setMedicamentos] = useState([]);
 
   const adicionarExame = async (novoExame) => {
     try {
-      const response = await fetch('http://localhost:3000/exames', {
+      const response = await fetch(`${URL_API}/exames`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -20,7 +22,7 @@ const AppProvider = ({ children }) => {
         throw new Error('Erro ao salvar o exame no servidor.');
       }
 
-      setExames([...exames, { ...novoExame, id: uuidv4() }]);
+      setExames([...exames, { ...novoExame,}]);
     } catch (error) {
       console.error('Erro ao adicionar exame:', error);
     }
@@ -35,7 +37,7 @@ const AppProvider = ({ children }) => {
 
   const carregarPacientes = async () => {
     try {
-      const pacientesResponse = await fetch('http://localhost:3000/pacientes');
+      const pacientesResponse = await fetch(`${URL_API}/pacientes`);
 
         const pacientesData = await pacientesResponse.json();
 
@@ -45,9 +47,9 @@ const AppProvider = ({ children }) => {
     }
   }
 
-  const fetchData = async () => {
+  const carregarExames = async () => {
     try {
-      const examesResponse = await fetch('http://localhost:3000/exames');
+      const examesResponse = await fetch(`${URL_API}/exames`);
     
       if (!examesResponse.ok) {
         throw new Error('Erro ao carregar dados da API');
@@ -60,10 +62,26 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
+  const adicionarMedicamento = async (novoMedicamento) => {
+    try {
+      const response = await fetch(`${URL_API}/medicamentos`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(novoMedicamento),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao salvar o medicamento no servidor.');
+      }
+
+      } catch (error) {
+      console.error('Erro ao adicionar medicamento:', error);
+    }
+  };
   
-    fetchData();
-  }, []); 
+  
 return (
   <AppContext.Provider
     value={{
@@ -72,7 +90,9 @@ return (
       setPacientes,
       handleAdicionarExame: adicionarExame,
       handleDeletarExame: deletarExame,
+      handleAdicionarMedicamento: adicionarMedicamento,
       carregarPacientes,
+      carregarExames
     }}
   >
     {children}

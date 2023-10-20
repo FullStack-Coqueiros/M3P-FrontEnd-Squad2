@@ -1,4 +1,4 @@
-const URL_API = 'http://localhost:3000'
+import { URL_API } from "."
 
 export async function CheckLogin(Email, Senha) {
     const resposta = await fetch(`${URL_API}/usuarios`)

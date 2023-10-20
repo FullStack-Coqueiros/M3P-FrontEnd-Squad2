@@ -4,35 +4,31 @@ import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from 'uuid';
 import { useAppContext } from "../../context/useAppContext";
 import Sidebar from "../../components/SidebarComponents/Sidebar"
-// import "./styles.css"
+import { URL_API } from "../../services";
+
 
 function CadastroMedicamentos() {
-    const { handleAdicionarMedicamentos, handleDeletarMedicamento, pacientes, setPacientes, carregarPacientes } = useAppContext();
+    const { handleAdicionarMedicamento, handleDeletarMedicamento, pacientes, setPacientes, carregarPacientes } = useAppContext();
     const [isSaved, setIsSaved] = useState(false);
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     useEffect(() => {
-        const fetchPacientes = async () => {
-            try {
-                const response = await fetch('http://localhost:3000/pacientes');
-                const data = await response.json();
-                setPacientes(data);
-            } catch (error) {
-                console.error('Erro ao buscar pacientes', error);
-            }
-        };
-        fetchPacientes();
-    }, [setPacientes]);
+        
+        carregarPacientes();
+    }, []);
 
-    function createMedicamento(data) {
-        const medicamento = {
-            ...data,
-            id: uuidv4(),
-        };
+    function createMedicamento(medicamento) {
 
-        handleAdicionarMedicamento(medicamento);
+        const novoMedicamento = {
+            ...medicamento, 
+            pacienteId: Number(medicamento.pacienteId)
+        
+        }
+        
+
+        handleAdicionarMedicamento(novoMedicamento);
         setIsSaved(true);
         setShowSuccessAlert(true);
 
@@ -41,19 +37,19 @@ function CadastroMedicamentos() {
         // Imprimir os dados no console
         console.log('Dados do medicamento para o paciente:', medicamento);
 
-        const deletarMedicamento = (medicamentoId) => {
-
-            const medicamentoParaDeletar = medicamentos.find((medicamento) => medicamento.id === medicamentoId);
-
-            if (medicamentoParaDeletar) {
-                handleDeletarMedicamento(medicamentoId);
-            } else {
-                console.warn('Tentativa de deletar medicamento inexistente.');
-            }
-        };
-
+        
     }
+    
+    const deletarMedicamento = (medicamentoId) => {
 
+        const medicamentoParaDeletar = medicamentos.find((medicamento) => medicamento.id === medicamentoId);
+
+        if (medicamentoParaDeletar) {
+            handleDeletarMedicamento(medicamentoId);
+        } else {
+            console.warn('Tentativa de deletar medicamento inexistente.');
+        }
+    };
 
     return (
         <>
@@ -182,8 +178,8 @@ function CadastroMedicamentos() {
                         </Row>
                         <div >
                             <Button className="btn-salvar" type="submit" > Salvar </Button>
-                            <Button className="btn-editar" type="button" disable={!handleAdicionarDieta} > Editar </Button>
-                            <Button className="btn-reset" type="reset" disable={!handleAdicionarDieta} > Deletar </Button>
+                            {/* <Button className="btn-editar" type="button" disable={!handleAdicionarDieta} > Editar </Button>
+                            <Button className="btn-reset" type="reset" disable={!handleAdicionarDieta} > Deletar </Button> */}
                         </div>
                     </form>
 

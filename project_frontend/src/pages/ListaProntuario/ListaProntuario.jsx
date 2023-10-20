@@ -1,5 +1,7 @@
 import React from 'react'
 
+// TODO: criar um useeffect que carrega todos os exames ao abrir a página
+
 function ListaProntuario() {
   return (
     <div>

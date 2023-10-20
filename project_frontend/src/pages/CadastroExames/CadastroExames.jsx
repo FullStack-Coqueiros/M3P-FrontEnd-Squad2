@@ -7,6 +7,7 @@ import Sidebar from "../../components/SidebarComponents/Sidebar"
 import "./styles.css"
 
 import dbJson from '../../../db.json';
+import { URL_API } from "../../services";
 
 
 function CadastroExames() {
@@ -19,7 +20,7 @@ function CadastroExames() {
   useEffect(() => {
     const fetchPacientes = async () => {
       try {
-        const response = await fetch('http://localhost:3000/pacientes');
+        const response = await fetch(`${URL_API}/pacientes`);
         const data = await response.json();
         setPacientes(data);
       } catch (error) {
