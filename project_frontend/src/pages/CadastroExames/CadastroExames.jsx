@@ -7,7 +7,7 @@ import { useAppContext } from "../../context/useAppContext";
 //COMPONENTS
 import Sidebar from "../../components/SidebarComponents/Sidebar"
 //CSS
-import "./styles.css"
+import "../../assets/index.css"
 
 import { URL_API } from "../../services";
 
@@ -42,7 +42,6 @@ function CadastroExames() {
     <>
       <Sidebar />
       <Container >
-        <h1>INFORME OS CAMPOS PARA CADASTRO</h1>
         <section className="form-med">
           <form onSubmit={handleSubmit(createExame)}>
             <h2>Cadastro Exames</h2>
@@ -135,6 +134,7 @@ function CadastroExames() {
               <Form.Label>Resultado do Exame:</Form.Label>
               <Form.Control
                 as="textarea"
+                rows={5}
                 placeholder="Digite o resultado do exame"
                 {...register("resultados", {
                   required: true, minLength: 16,
