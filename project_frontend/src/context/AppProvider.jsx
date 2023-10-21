@@ -7,6 +7,7 @@ const AppProvider = ({ children }) => {
   const [exames, setExames] = useState([]);
   const [pacientes, setPacientes] = useState([]);
   const [medicamentos, setMedicamentos] = useState([]);
+  const [consultas, setConsultas] = useState([]);
 
   const adicionarExame = async (novoExame) => {
     try {
@@ -27,13 +28,6 @@ const AppProvider = ({ children }) => {
       console.error('Erro ao adicionar exame:', error);
     }
   };
-
-  const deletarExame = (exameId) => {
-    // Filtra os exames para remover o exame com o ID correspondente
-    const novosExames = exames.filter((exame) => exame.id !== exameId);
-    setExames(novosExames);
-  };
-
 
   const carregarPacientes = async () => {
     try {
@@ -80,6 +74,25 @@ const AppProvider = ({ children }) => {
       console.error('Erro ao adicionar medicamento:', error);
     }
   };
+
+  const adicionarConsulta = async (novaConsulta) => {
+    try {
+      const response = await fetch(`${URL_API}/consultas`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(novaConsulta),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao salvar a consulta no servidor.');
+      }
+
+      } catch (error) {
+      console.error('Erro ao adicionar consulta:', error);
+    }
+  };
   
   
 return (
@@ -89,8 +102,8 @@ return (
       pacientes,
       setPacientes,
       handleAdicionarExame: adicionarExame,
-      handleDeletarExame: deletarExame,
       handleAdicionarMedicamento: adicionarMedicamento,
+      handleAdicionarConsulta: adicionarConsulta,
       carregarPacientes,
       carregarExames
     }}
