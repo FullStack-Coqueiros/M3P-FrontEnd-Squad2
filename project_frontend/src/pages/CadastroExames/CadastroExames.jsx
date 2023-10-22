@@ -1,74 +1,47 @@
+//BIBLIOTECAS
 import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { v4 as uuidv4 } from 'uuid';
+//CONTEXT
 import { useAppContext } from "../../context/useAppContext";
+//COMPONENTS
 import Sidebar from "../../components/SidebarComponents/Sidebar"
-import "./styles.css"
+//CSS
+import "../../assets/index.css"
 
-import dbJson from '../../../db.json';
 import { URL_API } from "../../services";
 
 
 function CadastroExames() {
-  const { handleAdicionarExame, handleDeletarExame, pacientes, setPacientes, carregarPacientes } = useAppContext();
+  const { handleAdicionarExame, pacientes, carregarPacientes } = useAppContext();
   const [isSaved, setIsSaved] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   useEffect(() => {
-    const fetchPacientes = async () => {
-      try {
-        const response = await fetch(`${URL_API}/pacientes`);
-        const data = await response.json();
-        setPacientes(data);
-      } catch (error) {
-        console.error('Erro ao buscar pacientes', error);
-      }
-    };
-    fetchPacientes();
-  }, [setPacientes]);
+    carregarPacientes();
+  }, []);
 
-  function createExame(data) {
-    const exame = {
-      ...data,
-      id: uuidv4(),
-    };
-
-    // Adiciona o novo exame ao array de exames em dbJson
-    dbJson.exames = [...dbJson.exames, exame];
-
-
+  function createExame(exame) {
+    const novoExame = {
+      ...exame,
+      pacienteId: Number(exame.pacienteId)
+    }
+    handleAdicionarExame(novoExame);
     setIsSaved(true);
     setShowSuccessAlert(true);
 
     // Limpar o formulário
     reset();
     // Imprimir os dados no console
-    console.log('Dados do exame para o paciente:', exame);
-
-    const deletarExame = (exameId) => {
-
-      const exameParaDeletar = exames.find((exame) => exame.id === exameId);
-
-      if (exameParaDeletar) {
-        handleDeletarExame(exameId);
-      } else {
-        console.warn('Tentativa de deletar exame inexistente.');
-      }
-    };
-
+    console.log('Dados do Exame para o paciente:', exame);
   }
-
 
   return (
     <>
       <Sidebar />
-      <Container>
-
-
-        <h1>INFORME OS CAMPOS PARA CADASTRO</h1>
+      <Container >
         <section className="form-med">
           <form onSubmit={handleSubmit(createExame)}>
             <h2>Cadastro Exames</h2>
@@ -92,7 +65,8 @@ function CadastroExames() {
                     )}
                   </Form.Group>
                 </div>
-
+              </Col>
+              <Col>
                 <Form.Group name="exame">
                   <Form.Label>Nome do Exame:</Form.Label>
                   <Form.Control
@@ -108,8 +82,9 @@ function CadastroExames() {
                     <span className="error-message">Campo Obrigatório com 8 a 64 caracteres</span>
                   )}
                 </Form.Group>
-
               </Col>
+            </Row>
+            <Row>
               <Col>
                 <Form.Group name="Tipo">
                   <Form.Label>Tipo de Exame:</Form.Label>
@@ -127,9 +102,6 @@ function CadastroExames() {
                   )}
                 </Form.Group>
               </Col>
-            </Row>
-
-            <Row>
               <Col>
                 <Form.Group name="DataExame">
                   <Form.Label>Data do Exame:</Form.Label>
@@ -157,31 +129,32 @@ function CadastroExames() {
               </Col>
             </Row>
 
-            <Row>
 
-              <Col>
-                <Form.Group name="Laboratorio">
-                  <Form.Label>Laboratório:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Digite o resultado do exame"
-                    {...register("resultados", {
-                      required: true, minLength: 16,
-                      maxLength: 1024,
-                    })}
-                  />
-                  {errors.resultados && (
-                    <span className="error-message">Campo Obrigatório com 16 a 1024 caracteres</span>
-                  )}
-                </Form.Group>
-                <Form.Group name="Documento">
-                  <Form.Label>URL do Documento:</Form.Label>
-                  <Form.Control
-                    type="url"
-                    placeholder="Digite a URL do documento"
-                    {...register("documento")}
-                  />
-                </Form.Group>
+            <Form.Group name="Resultado">
+              <Form.Label>Resultado do Exame:</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={5}
+                placeholder="Digite o resultado do exame"
+                {...register("resultados", {
+                  required: true, minLength: 16,
+                  maxLength: 1024,
+                })}
+              />
+              {errors.resultados && (
+                <span className="error-message">Campo Obrigatório com 16 a 1024 caracteres</span>
+              )}
+            </Form.Group>
+            <Row>
+            <Col>
+              <Form.Group name="Documento">
+                <Form.Label>URL do Documento:</Form.Label>
+                <Form.Control
+                  type="url"
+                  placeholder="Digite a URL do documento"
+                  {...register("documento")}
+                />
+              </Form.Group>
               </Col>
               <Col>
                 <Form.Group name="Laboratorio">
@@ -198,42 +171,34 @@ function CadastroExames() {
                     <span className="error-message">Campo Obrigatório com 4 a 32 caracteres</span>
                   )}
                 </Form.Group>
-                <Form.Group name="statusSistema">
-                  <Form.Label>Status do Sistema:</Form.Label>
-                  <div>
-                    <Form.Check
-                      type="radio"
-                      label="Ativo"
-                      value="Ativo"
-                      {...register("statusSistema", { required: "Selecione o status do sistema." })}
-                    />
-                    <Form.Check
-                      type="radio"
-                      label="Inativo"
-                      value="Inativo"
-                      {...register("statusSistema", { required: "Selecione o status do sistema." })}
-                    />
-                  </div>
-                  {errors.statusSistema && (
-                    <span className="error-message">{errors.statusSistema.message}</span>
-                  )}
-                </Form.Group>
-
-
-
               </Col>
             </Row>
-
+            <Col>
+              <Form.Group name="statusSistema">
+                <Form.Label>Status do Sistema:</Form.Label>
+                <div>
+                  <Form.Check
+                    type="radio"
+                    label="Ativo"
+                    value="Ativo"
+                    {...register("statusSistema", { required: "Selecione o status do sistema." })}
+                  />
+                  <Form.Check
+                    type="radio"
+                    label="Inativo"
+                    value="Inativo"
+                    {...register("statusSistema", { required: "Selecione o status do sistema." })}
+                  />
+                </div>
+                {errors.statusSistema && (
+                  <span className="error-message">{errors.statusSistema.message}</span>
+                )}
+              </Form.Group>
+            </Col>
             <div >
               <Button className="btn-salvar" type="submit" > Salvar </Button>
-              {/* <Button className="btn-editar" type="button" disable={!handleAdicionarExame} > Editar </Button>
-        <Button className="btn-reset" type="reset" disabled={!handleDeletarExame}>Deletar</Button> */}
-
-
-
             </div>
           </form>
-
           {showSuccessAlert && (
             <div className="alert alert-success mt-3">
               Cadastro efetuado com sucesso!

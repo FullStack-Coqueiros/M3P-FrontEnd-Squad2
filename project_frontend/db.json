@@ -66,7 +66,32 @@
       "statusSistema": true
     }
   ],
-  "exames": [],
+  "exames": [
+    {
+      "pacienteId": 1,
+      "exame": "k.lklkllk",
+      "tipo": "raio x perna direita",
+      "dataExame": "2023-10-20",
+      "horaExame": "22:05",
+      "resultados": "sdsadasdasSFSAFasfsfsaFFSfASFasfSAFasfASF",
+      "documento": "http://localhost/?p=foo/bar",
+      "laboratorio": "dfdfdfdfdDSFASDFSDF",
+      "statusSistema": "Ativo",
+      "id": 1
+    },
+    {
+      "pacienteId": 1,
+      "exame": "sadasdsadasdsadsadadsad",
+      "tipo": "raio x perna direita",
+      "dataExame": "2023-10-20",
+      "horaExame": "23:19",
+      "resultados": "dsassdasdaSsadasdasd",
+      "documento": "http://localhost/?p=foo/bar",
+      "laboratorio": "dfdfdfdfdDSFASDFSDF",
+      "statusSistema": "Ativo",
+      "id": 2
+    }
+  ],
   "medicamentos": [
     {
       "pacienteId": 1,
@@ -80,6 +105,56 @@
       "observações": "jbaodbaushcbssjiadvhsdhsdosidb",
       "statusSistema": "ativo ",
       "id": 2
+    }
+  ],
+  "consultas": [
+    {
+      "pacientId": "1",
+      "consulta": "sdasdasdadsad",
+      "dataConsulta": "2023-10-20",
+      "horaConsulta": "22:58",
+      "descricao": "sadasdasdasdasdasdasda",
+      "medicacao": "asdasdasdasdasdasdas",
+      "dosagem": "asdasdassdasda",
+      "statusSistema": "ativo",
+      "pacienteId": null,
+      "id": 1
+    },
+    {
+      "pacientId": "2",
+      "consulta": "Dores musculares",
+      "dataConsulta": "2023-10-20",
+      "horaConsulta": "22:58",
+      "descricao": "Reclamou de dores na costas ",
+      "medicacao": "cerveja ",
+      "dosagem": "tomar 30 litros de cerveja",
+      "statusSistema": "Ativo",
+      "pacienteId": null,
+      "id": 2
+    },
+    {
+      "pacientId": "1",
+      "consulta": "fratura nas costelas",
+      "dataConsulta": "2023-10-20",
+      "horaConsulta": "23:01",
+      "descricao": "fraturou três costelas do lado direito",
+      "medicacao": "cervejanol",
+      "dosagem": "tomar 70 litro de cervejanol",
+      "statusSistema": "Ativo",
+      "pacienteId": null,
+      "id": 3
+    },
+    {
+      "pacientId": "1",
+      "consulta": "asdasdasdasdasdasdasdad",
+      "dataConsulta": "2023-10-20",
+      "horaConsulta": "23:21",
+      "descricao": "sadasdasdasdasdasdasdasdads",
+      "medicacao": "sadasdasdasdasdasdasdasdasdasdasdasd",
+      "dosagem": "sdasdasdasdasdasdasdasdasdasda",
+      "statusSistema": "Ativo",
+      "pacienteId": null,
+      "id": 4
     }
   ]
 }
