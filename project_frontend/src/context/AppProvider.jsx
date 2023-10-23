@@ -67,7 +67,7 @@ const AppProvider = ({ children }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Erro ao salvar o medicamento no servidor.');
+        throw new Error('Erro ao salvar o medicamento .');
       }
 
       } catch (error) {
@@ -86,7 +86,26 @@ const AppProvider = ({ children }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Erro ao salvar a consulta no servidor.');
+        throw new Error('Erro ao salvar a consulta .');
+      }
+
+      } catch (error) {
+      console.error('Erro ao adicionar consulta:', error);
+    }
+  };
+
+  const adicionarPaciente = async (novoPaciente) => {
+    try {
+      const response = await fetch(`${URL_API}/pacientes`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(novoPaciente),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao salvar paciente.');
       }
 
       } catch (error) {
@@ -101,6 +120,7 @@ return (
       exames,
       pacientes,
       setPacientes,
+      handleAdicionarPaciente: adicionarPaciente,
       handleAdicionarExame: adicionarExame,
       handleAdicionarMedicamento: adicionarMedicamento,
       handleAdicionarConsulta: adicionarConsulta,
