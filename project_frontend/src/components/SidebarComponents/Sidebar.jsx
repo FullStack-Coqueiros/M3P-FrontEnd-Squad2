@@ -11,17 +11,16 @@ import './styles.css'
 function Sidebar() {
   return (
     <div className="sidebar">
-      <Link className="active" to="/Dashboard" >HOME</Link>
-      <Link to="/cadastropaciente" >Cadastro Paciente</Link>
-      <Link to="/cadastrousuario" >Cadastro Usuário </Link>
-      <Link to="/CadastroExames" >Cadastro Exames </Link>
-      <Link to="/cadastrodieta" >Cadastro Dieta</Link>
-      <Link to="/CadastroConsulta" >Cadastro Consulta </Link>
-      <Link to="/CadastroExames" >Cadastro Exames </Link>
-      <Link to="/CadastroMedicamento" >Cadastro Medicamento </Link>
-      <Link to="/CadastroExercicio" >Cadastro Exercicio </Link>
-      <Link to="/ListaProntuario" >Lista Prontuario </Link>
-      <Link to="/Prontuario" > Prontuario </Link>
+      <Link className="active" to="/Dashboard" >  <BsFillHouseAddFill />  HOME</Link>
+      <Link to="/cadastrousuario" > < BsPersonPlus/> Cadastro Usuário </Link>
+      <Link to="/cadastropaciente" > <BsPersonPlus /> Cadastro Paciente</Link>
+      <Link to="/cadastroConsulta" > <GiStethoscope  /> Cadastro Consulta </Link>
+      <Link to="/CadastroExames" > <BsHeartPulse /> Cadastro Exames </Link>
+      <Link to="/cadastrodieta" ><IoRestaurantOutline /> Cadastro Dieta</Link>
+      <Link to="/cadastroExercicio" > < CiDumbbell /> Cadastro Exercicio </Link>
+      <Link to="/cadastroMedicamento" > <CiPill  /> Cadastro Medicamento </Link>
+      <Link to="/listaProntuario" > <BsListCheck /> Lista Prontuario </Link>
+      <Link to="/prontuario" > <BiLogOut /> prontuario </Link>
       <div className="logout-button">
         <Link to="/" className="logout-link">
           <BiLogOut /> Sair
