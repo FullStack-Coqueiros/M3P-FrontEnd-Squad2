@@ -17,7 +17,7 @@ import CadastroExercicio from './pages/CadastroExercicio/CadastroExercicio'
 import CadastroPaciente from './pages/CadastroPaciente/CadastroPaciente'
 import ListaProntuario from './pages/ListaProntuario/ListaProntuario'
 import Prontuario from './pages/Prontuario/Prontuario'
-import Dashboard from './components/Dashboard/Dashboard'
+import Dashboard from './pages/Dashboard/Dashboard'
 
 function App() {
 
@@ -33,13 +33,13 @@ function App() {
               <Route path='/cadastrodieta' element={<CadastroDieta />} />
               <Route path='/cadastrousuario' element={<CadastroUsuario />} />
               <Route path='/cadastropaciente' element={<CadastroPaciente/>}/>
-              <Route path='/CadastroExames' element={<CadastroExames />} />
-              <Route path='/CadastroConsulta' element={<CadastroConsulta />} />
-              <Route path='/CadastroMedicamento' element={<CadastroMedicamento />} />
-              <Route path='/CadastroExercicio' element={<CadastroExercicio />} />
-              <Route path='/ListaProntuario' element={<ListaProntuario />} />
-              <Route path='/Prontuario' element={<Prontuario />} />
-              <Route path='/Dashboard' element={<Dashboard />} />
+              <Route path='/cadastroExames' element={<CadastroExames />} />
+              <Route path='/cadastroConsulta' element={<CadastroConsulta />} />
+              <Route path='/cadastroMedicamento' element={<CadastroMedicamento />} />
+              <Route path='/cadastroExercicio' element={<CadastroExercicio />} />
+              <Route path='/listaProntuario' element={<ListaProntuario />} />
+              <Route path='/prontuario' element={<Prontuario />} />
+              <Route path='/dashboard' element={<Dashboard />} />
             </Routes>
           </Router>
         </main>
