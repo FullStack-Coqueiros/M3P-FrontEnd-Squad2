@@ -3,10 +3,9 @@ import { Form, Button, Container } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useAppContext } from "../../context/useAppContext";
 import Sidebar from "../../components/SidebarComponents/Sidebar";
-import { v4 as uuidv4 } from 'uuid';
 import { Link } from "react-router-dom";
 
-
+// TODO refaturar codigo com base em cadastros como exames,consultas e medicamentos
 function CadastroDieta() {
 
   const { handleAdicionarDieta, pacientes } = useAppContext();
@@ -22,7 +21,7 @@ function CadastroDieta() {
   function onSubmit(data) {
     const dieta = {
       ...data,
-      id: uuidv4(),
+    
     };
 
     handleAdicionarDieta(dieta);
