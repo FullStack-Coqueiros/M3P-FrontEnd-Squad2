@@ -4,9 +4,10 @@ import { useForm } from "react-hook-form";
 import { useAppContext } from "../../context/useAppContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Sidebar from "../../components/SidebarComponents/Sidebar";
-import { v4 as uuidv4 } from 'uuid';
 import { Link } from "react-router-dom";
 
+//TODO Refaturar codigo com base em cadastros como consulta,exames  e medicamentos
+//TODO Lembrar de criar const na appprovider para gerar cadastro e esportar 
 
 function CadastroUsuario() {
 
@@ -23,7 +24,7 @@ function CadastroUsuario() {
   function onSubmit(data) {
     const usuario = {
       ...data,
-      id: uuidv4(),
+     
     };
 
     handleAdicionarUsuario(usuario);
@@ -73,7 +74,7 @@ function CadastroUsuario() {
 
               <Form.Group name="email">
                 <Form.Label>Email:</Form.Label>
-                <Form.Control type="email" placeholder="Digite seu email" {...register("Email", { required: true, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i }})} />
+                <Form.Control type="email" placeholder="Digite seu email" {...register("email", { required: true, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i }})} />
                 {errors.email && <span className="error-message">Campo Obrigatório</span>}
               </Form.Group>
 
