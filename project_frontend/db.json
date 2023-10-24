@@ -155,6 +155,17 @@
       "statusSistema": "Ativo",
       "pacienteId": null,
       "id": 4
+    },
+    {
+      "pacienteId": 1,
+      "consulta": "Inflamação no dedinho do pé",
+      "dataConsulta": "2023-10-22",
+      "horaConsulta": "17:00",
+      "descricao": "O paciente esta com inflamação no dedinho do pé. Provável causa uma topada com o pé da mesa.",
+      "medicacao": "Gelo 3  vezes ao dia durante 1 semana",
+      "dosagem": "Não bater o dedinho na mesa novamente.",
+      "statusSistema": "Ativo",
+      "id": 5
     }
   ]
 }

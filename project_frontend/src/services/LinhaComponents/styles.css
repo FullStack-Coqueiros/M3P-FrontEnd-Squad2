@@ -1,0 +1,8 @@
+.card-linha {
+    height: 64px;
+    background: white;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
