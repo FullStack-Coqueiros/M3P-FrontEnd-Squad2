@@ -133,19 +133,7 @@ function CadastroMedicamentos() {
                             </Col>
                         </Row>
 
-                        <Row>
-                            <Col>
-                                <Form.Group name="DataExame">
-                                    <Form.Label>Data do Exame:</Form.Label>
-                                    <Form.Control
-                                        type="date"
-                                        {...register("dataExame", { required: true })}
-                                    />
-                                    {errors.dataExame && (
-                                        <span className="error-message">Campo Obrigatório</span>
-                                    )}
-                                </Form.Group>
-                            </Col>
+                        
                             <Col>
                                 <Form.Group name="Unidade">
                                     <Form.Label>Unidade:</Form.Label>
@@ -159,7 +147,7 @@ function CadastroMedicamentos() {
                                     </Form.Select>
                                 </Form.Group>
                             </Col>
-                        </Row>
+                        
 
                         <Row>
                             <Col>
