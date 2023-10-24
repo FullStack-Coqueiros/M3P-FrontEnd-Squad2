@@ -156,5 +156,17 @@
       "pacienteId": null,
       "id": 4
     }
+  ],
+  "exercicios": [
+    {
+      "pacienteId": 2,
+      "medicamento": "agachamento ",
+      "data": "2023-10-23",
+      "horario": "21:00",
+      "tipo": "Resistência Muscular",
+      "quantidade": "50.00",
+      "descrição": "fazer 50 agachamentos por dia. ",
+      "id": 1
+    }
   ]
 }

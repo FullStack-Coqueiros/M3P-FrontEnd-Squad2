@@ -102,7 +102,7 @@ const AppProvider = ({ children }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(novaExercicio),
+        body: JSON.stringify(novoExercicio),
       });
 
       if (!response.ok) {

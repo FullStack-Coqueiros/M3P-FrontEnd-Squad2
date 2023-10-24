@@ -1,5 +1,16 @@
+import React, { useEffect, useState } from "react";
+import { Form, Button, Container, Row, Col, FormGroup } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { v4 as uuidv4 } from 'uuid';
+import { useAppContext } from "../../context/useAppContext";
+import Sidebar from "../../components/SidebarComponents/Sidebar"
+import { URL_API } from "../../services";
+
+
+
+
 function CadastroExercicios() {
-  const { handleAdicionarMedicamento, handleDeletarExercicio, pacientes, setPacientes, carregarExercicios } = useAppContext();
+  const { handleAdicionarExercicio, handleDeletarExercicio, pacientes, setPacientes, carregarPacientes } = useAppContext();
   const [isSaved, setIsSaved] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
@@ -155,4 +166,4 @@ function CadastroExercicios() {
 }
 
 
-export default CadastroMedicamentos;
+export default CadastroExercicios;

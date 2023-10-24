@@ -183,7 +183,7 @@ function CadastroMedicamentos() {
                         </div>
                     </form>
 
-                    {showSuccessAlert && (<div className="alert alert-success mt-3"> Dieta cadastrada com sucesso!
+                    {showSuccessAlert && (<div className="alert alert-success mt-3"> Medicamento cadastrada com sucesso!
                     </div>
                     )}
                 </section>
