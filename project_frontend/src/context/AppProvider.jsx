@@ -8,6 +8,7 @@ const AppProvider = ({ children }) => {
   const [pacientes, setPacientes] = useState([]);
   const [medicamentos, setMedicamentos] = useState([]);
   const [consultas, setConsultas] = useState([]);
+  const [exercicios, setExercicios] = useState([]);
 
   const adicionarExame = async (novoExame) => {
     try {
@@ -112,6 +113,25 @@ const AppProvider = ({ children }) => {
       console.error('Erro ao adicionar consulta:', error);
     }
   };
+
+  const adicionarExercicio = async (novoExercicio) => {
+    try {
+      const response = await fetch(`${URL_API}/exercicios`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(novoExercicio),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao salvar o exercício no servidor.');
+      }
+
+      } catch (error) {
+      console.error('Erro ao adicionar exercício:', error);
+    }
+  };
   
   
 return (
@@ -124,6 +144,7 @@ return (
       handleAdicionarExame: adicionarExame,
       handleAdicionarMedicamento: adicionarMedicamento,
       handleAdicionarConsulta: adicionarConsulta,
+      handleAdicionarExercicio: adicionarExercicio,
       carregarPacientes,
       carregarExames
     }}
