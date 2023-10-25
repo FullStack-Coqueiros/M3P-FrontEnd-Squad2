@@ -14,7 +14,6 @@ import { URL_API } from "../../services";
 
 function CadastroExames() {
   const { handleAdicionarExame, pacientes, carregarPacientes } = useAppContext();
-  const [isSaved, setIsSaved] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -29,7 +28,6 @@ function CadastroExames() {
       pacienteId: Number(exame.pacienteId)
     }
     handleAdicionarExame(novoExame);
-    setIsSaved(true);
     setShowSuccessAlert(true);
 
     // Limpar o formulário
