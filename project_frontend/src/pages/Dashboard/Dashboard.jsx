@@ -19,9 +19,16 @@ function Dashboard() {
   const [exercicios, setExercicios] = useState([]);
   const [termoPesquisa, setTermoPesquisa] = useState("");
   const [termoPesquisaUsuario, setTermoPesquisaUsuario] = useState("");
+  
+  const isAdmin = true; // ou const isAdmin = false;
 
-  const isAdmin = true;// Esta parte esta para teste 
-  // const isAdmin = false; // Esta parte esta para teste 
+  if (isAdmin) {
+    
+    console.log("Usuário é um administrador.");
+  } else {
+    
+    console.log("Usuário não é um administrador.");
+  }
 
   useEffect(() => {
     fetch(`${URL_API}/usuarios`)
@@ -136,7 +143,7 @@ function Dashboard() {
                 .filter((paciente) => {
                   const termoLowerCase = termoPesquisa.toLowerCase();
                   return (
-                    paciente.nomeCompleto.toLowerCase().includes(termoLowerCase) ||
+                    paciente && paciente.nomeCompleto && paciente.nomeCompleto.toLowerCase().includes(termoLowerCase) ||
                     paciente.cpf.includes(termoPesquisa) ||
                     paciente.telefone.includes(termoPesquisa) ||
                     paciente.email.toLowerCase().includes(termoLowerCase)
@@ -173,7 +180,7 @@ function Dashboard() {
                 .filter((paciente) => {
                   const termoLowerCase = termoPesquisa.toLowerCase();
                   return (
-                    paciente.nomeCompleto.toLowerCase().includes(termoLowerCase) ||
+                    paciente && paciente.nomeCompleto && paciente.nomeCompleto.toLowerCase().includes(termoLowerCase) ||
                     paciente.cpf.includes(termoPesquisa) ||
                     paciente.telefone.includes(termoPesquisa) ||
                     paciente.email.toLowerCase().includes(termoLowerCase)
@@ -188,6 +195,7 @@ function Dashboard() {
                           <div>{paciente.nomeCompleto}</div>
                           <div>Nascimento: {paciente.dataNascimento}</div>
                           <div>Telefone: {paciente.telefone}</div>
+                        
                         </Card.Title>
                       </Card.Body>
                       <Col xs={12}>
