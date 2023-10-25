@@ -1,51 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Form, Button, Container } from "react-bootstrap";
+
+import { useAppContext } from "../../context/useAppContext";
 import Sidebar from "../../components/SidebarComponents/Sidebar";
 
 function CadastroPaciente() {
+  const { handleAdicionarPaciente } = useAppContext();
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
   const {
     register,
+    setValue,
+    setFocus,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
 
-  const AdicionarPaciente = async (event) => {
-    // setLoading(true);
-    setTimeout(async () => {
-      // await Post("pacientes", novoPaciente);
-      // setLoading(false);
-    }, 4000);
+  const checkCEP = async (e) => {
+    const cep = e.target.value.replace(/\D/g, "");
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = await response.json();
+      setValue("logradouro", data.logradouro);
+      setValue("bairro", data.bairro);
+      setValue("localidade", data.localidade);
+      setValue("uf", data.uf);
+      setFocus("numero", "");
+    } catch (error) {
+      console.error("Erro ao obter dados do CEP:", error);
+    }
   };
 
-  //API CEP
-  const checkCEP = (e) => {
-    const cep = e.target.value.replace(/\D/g, "");
-    console.log(cep);
-    fetch(`https://viacep.com.br/ws/${cep}/json/`)
-      .then((res) => res.json())
-      .then((data) => {
-        setValue("logradouro", data.logradouro);
-        setValue("bairro", data.bairro);
-        setValue("localidade", data.localidade);
-        setValue("uf", data.uf);
-        setFocus("número", "");
-      });
+  const createPaciente = (paciente) => {
+    try {
+      const novoPaciente = {
+        ...paciente,
+        pacienteId: Number(paciente.pacienteId),
+      };
+      console.log('Novo Paciente:', novoPaciente);
+
+      // Adicionei um console.log aqui para verificar os dados antes de salvar
+      console.log('Dados do paciente antes de salvar:', paciente);
+
+      handleAdicionarPaciente(novoPaciente);
+      setShowSuccessAlert(true);
+
+      // Limpar o formulário
+      reset();
+      // Imprimir os dados no console
+      console.log('Dados do paciente após salvar:', paciente);
+    } catch (error) {
+      console.error("Erro ao cadastrar paciente:", error);
+    }
   };
 
   return (
     <div>
       <Sidebar />
       <Container>
-        <h1>INFORME OS CAMPOS PARA CADASTRAR PACIENTE</h1>
         <section className="form-med">
           <div className="container mt-5">
-            {/* <form onSubmit={handleAdicionarPaciente(onSubmit)}> */}
-            <form onSubmit={handleSubmit(AdicionarPaciente)}>
+            <h2>Cadastro de Pacientes</h2>
+            <form onSubmit={handleSubmit(createPaciente)}>
               <div className="row mb-4">
                 <div className="col-8">
-                  <Form.Group name="nome">
+                  <Form.Group controlId="nome">
                     <Form.Label className="mb-0">Nome Completo:</Form.Label>
                     <Form.Control
                       type="text"
@@ -57,13 +78,13 @@ function CadastroPaciente() {
                       })}
                     />
                     {errors.nome && (
-                      <span className="error-message">Campo Obrigatório</span>
+                      <span className="error-message">Campo Obrigatório com 8 a 64 caracteres</span>
                     )}
                   </Form.Group>
                 </div>
 
                 <div className="col-2">
-                  <Form.Group name="genero">
+                  <Form.Group controlId="genero">
                     <Form.Label className="mb-0">Gênero</Form.Label>
                     <Form.Select {...register("genero", { required: true })}>
                       <option>Selecione</option>
@@ -77,7 +98,7 @@ function CadastroPaciente() {
                   </Form.Group>
                 </div>
                 <div className="col-2">
-                  <Form.Group name="dataNascimento">
+                  <Form.Group controlId="dataNascimento">
                     <Form.Label className="mb-0">
                       Data de nascimento:
                     </Form.Label>
@@ -93,41 +114,39 @@ function CadastroPaciente() {
               </div>
               <div className="row mb-4">
                 <div className="col-4">
-                  <Form.Group name="cpf">
+                  <Form.Group controlId="cpf">
                     <Form.Label className="mb-0">CPF</Form.Label>
                     <Form.Control
-                      type=""
+                      type="text"
                       placeholder="CPF"
                       {...register("cpf", {
                         required: true,
-                        pattern: { value: /^(\d{3}\.){3}\d{3}\-\d{2}$/ },
+                        pattern: { value: /^\d{3}\.\d{3}\.\d{3}-\d{2}$/ },
                       })}
                     />
                     {errors.cpf && (
-                      <span className="error-message">Campo Obrigatório</span>
+                      <span className="error-message">Campo obrigatório com o formato 000.000.000-00</span>
                     )}
                   </Form.Group>
                 </div>
 
                 <div className="col-4">
-                  <Form.Group name="rg">
+                  <Form.Group controlId="rg">
                     <Form.Label className="mb-0">RG</Form.Label>
                     <Form.Control
-                      type=""
+                      type="text"
                       placeholder="RG"
-                      {...register("rg", {
-                        required: true,
-                        pattern: { value: /^\d{4}\.\d{3}-[A-Z]{13}$/ },
-                      })}
+                      {...register("rg", { required: true })}
                     />
                     {errors.rg && (
-                      <span className="error-message">Campo Obrigatório</span>
+                      <span className="error-message">Campo Obrigatório com máximo de 20 caracteres</span>
                     )}
                   </Form.Group>
                 </div>
 
+
                 <div className="col-4">
-                  <Form.Group name="estadoCivil">
+                  <Form.Group controlId="estadoCivil">
                     <Form.Label className="mb-0">Estado civil</Form.Label>
                     <Form.Select
                       {...register("estadoCivil", { required: true })}
@@ -147,31 +166,31 @@ function CadastroPaciente() {
 
               <div className="row mb-4">
                 <div className="col-6">
-                  <Form.Group name="telefone">
+                  <Form.Group controlId="telefone">
                     <Form.Label className="mb-0">Telefone:</Form.Label>
                     <Form.Control
-                      type=""
+                      type="tel"
                       placeholder="Telefone"
                       {...register("telefone", {
                         required: true,
                         pattern: {
-                          value: /^\(\d{2}\)\s\d{1}\s\d{4}\s-\s\d{4}/g,
+                          value: /^\(\d{2}\)\s\d\s\d{4}-\d{4}$/,
                         },
                       })}
                     />
                     {errors.telefone && (
-                      <span className="error-message">Campo Obrigatório</span>
+                      <span className="error-message">Campo Obrigatório com o formato (99) 9 9999-99999</span>
                     )}
                   </Form.Group>
                 </div>
 
                 <div className="col-6">
-                  <Form.Group name="email">
+                  <Form.Group controlId="email">
                     <Form.Label className="mb-0">Email:</Form.Label>
                     <Form.Control
                       type="email"
                       placeholder="Digite seu email"
-                      {...register("Email", {
+                      {...register("email", {
                         required: true,
                         pattern: {
                           value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
@@ -179,7 +198,7 @@ function CadastroPaciente() {
                       })}
                     />
                     {errors.email && (
-                      <span className="error-message">Campo Obrigatório</span>
+                      <span className="error-message">Campo Obrigatório exemplo@gmail.com</span>
                     )}
                   </Form.Group>
                 </div>
@@ -187,7 +206,7 @@ function CadastroPaciente() {
 
               <div className="row  mb-4">
                 <div className="col-6">
-                  <Form.Group name="naturalidade">
+                  <Form.Group controlId="naturalidade">
                     <Form.Label className="mb-0">Naturalidade:</Form.Label>
                     <Form.Control
                       type="text"
@@ -199,28 +218,28 @@ function CadastroPaciente() {
                       })}
                     />
                     {errors.naturalidade && (
-                      <span className="error-message">Campo Obrigatório</span>
+                      <span className="error-message">Campo Obrigatório com 8 a 64 caracteres</span>
                     )}
                   </Form.Group>
                 </div>
 
                 <div className="col-6">
-                  <Form.Group name="contatoDeEmergencia">
+                  <Form.Group controlId="contatoDeEmergencia">
                     <Form.Label className="mb-0">
                       Contato de emergência:
                     </Form.Label>
                     <Form.Control
-                      type=""
+                      type="tel"
                       placeholder="Contato de emergência"
                       {...register("contatoDeEmergencia", {
                         required: true,
                         pattern: {
-                          value: /^\(\d{2}\)\s\d{1}\s\d{4}\s-\s\d{4}/g,
+                          value: /^\(\d{2}\)\s\d\s\d{4}-\d{4}$/,
                         },
                       })}
                     />
                     {errors.contatoDeEmergencia && (
-                      <span className="error-message">Campo Obrigatório</span>
+                      <span className="error-message">Campo Obrigatório com o formato (99) 9 9999-99999</span>
                     )}
                   </Form.Group>
                 </div>
@@ -228,7 +247,7 @@ function CadastroPaciente() {
 
               <div className="row mb-4">
                 <div className="col-6">
-                  <Form.Group name="alergias">
+                  <Form.Group controlId="alergias">
                     <Form.Label className="mb-0">Alergias</Form.Label>
                     <Form.Control
                       as="textarea"
@@ -236,15 +255,14 @@ function CadastroPaciente() {
                       placeholder="Alergias"
                       {...register("alergias", {
                         required: false,
-                        minLength: 10,
-                        maxLength: 1000,
                       })}
                     />
+
                   </Form.Group>
                 </div>
 
                 <div className="col-6">
-                  <Form.Group name="cuidadosEspecificos">
+                  <Form.Group controlId="cuidadosEspecificos">
                     <Form.Label className="mb-0">
                       Cuidados específicos
                     </Form.Label>
@@ -254,8 +272,6 @@ function CadastroPaciente() {
                       placeholder="Cuidados específicos"
                       {...register("cuidadosEspecificos", {
                         required: false,
-                        minLength: 10,
-                        maxLength: 1000,
                       })}
                     />
                   </Form.Group>
@@ -264,22 +280,20 @@ function CadastroPaciente() {
 
               <div className="row mb-4">
                 <div className="col-4">
-                  <Form.Group name="convenio">
+                  <Form.Group controlId="convenio">
                     <Form.Label className="mb-0">Convênio:</Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="Convênio"
                       {...register("convenio", {
                         required: false,
-                        minLength: 8,
-                        maxLength: 64,
                       })}
                     />
                   </Form.Group>
                 </div>
 
                 <div className="col-4">
-                  <Form.Group name="numeroDoConvenio">
+                  <Form.Group controlId="numeroDoConvenio">
                     <Form.Label className="mb-0">Número do convênio</Form.Label>
                     <Form.Control
                       type="text"
@@ -290,7 +304,7 @@ function CadastroPaciente() {
                 </div>
 
                 <div className="col-4">
-                  <Form.Group name="validadeDoConvenio">
+                  <Form.Group controlId="validadeDoConvenio">
                     <Form.Label className="mb-0">
                       Validade do convênio:
                     </Form.Label>
@@ -304,10 +318,10 @@ function CadastroPaciente() {
 
               <div className="row mb-4">
                 <div className="col-4">
-                  <Form.Group controlId="Cep">
+                  <Form.Group controlId="cep">
                     <Form.Label className="mb-0">Cep</Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       placeholder="00000-000"
                       {...register("cep", { required: true })}
                       onBlur={checkCEP}
@@ -315,13 +329,8 @@ function CadastroPaciente() {
                     {errors.cep && <span>Campo Obrigatório</span>}
                   </Form.Group>
                 </div>
-
-                <div className="col-2">
-                  <Form.Control className=" mt-4" type="button"></Form.Control>
-                </div>
-
                 <div className="col-6">
-                  <Form.Group controlId="Cidade">
+                  <Form.Group controlId="localidade">
                     <Form.Label className="mb-0">Cidade</Form.Label>
                     <Form.Control
                       type="text"
@@ -335,7 +344,7 @@ function CadastroPaciente() {
 
               <div className="row mb-4">
                 <div className="col-6">
-                  <Form.Group controlId="Estado">
+                  <Form.Group controlId="uf">
                     <Form.Label className="mb-0">Estado</Form.Label>
                     <Form.Control
                       type="text"
@@ -347,7 +356,7 @@ function CadastroPaciente() {
                 </div>
 
                 <div className="col-6">
-                  <Form.Group controlId="Logradouro">
+                  <Form.Group controlId="logradouro">
                     <Form.Label className="mb-0">Logradouro</Form.Label>
                     <Form.Control
                       type="text"
@@ -361,19 +370,19 @@ function CadastroPaciente() {
 
               <div className="row mb-4">
                 <div className="col-6">
-                  <Form.Group controlId="número">
+                  <Form.Group controlId="numero">
                     <Form.Label className="mb-0">Número</Form.Label>
                     <Form.Control
                       type="number"
                       placeholder="Número"
-                      {...register("número", { required: true })}
+                      {...register("numero", { required: true })}
                     />
-                    {errors.número && <span>Campo Obrigatório</span>}
+                    {errors.numero && <span>Campo Obrigatório</span>}
                   </Form.Group>
                 </div>
 
                 <div className="col-6">
-                  <Form.Group controlId="Complemento">
+                  <Form.Group controlId="complemento">
                     <Form.Label className="mb-0">Complemento</Form.Label>
                     <Form.Control
                       type="text"
@@ -386,7 +395,7 @@ function CadastroPaciente() {
 
               <div className="row mb-4">
                 <div className="col-6">
-                  <Form.Group controlId="Bairro">
+                  <Form.Group controlId="bairro">
                     <Form.Label className="mb-0">Bairro</Form.Label>
                     <Form.Control
                       type="text"
@@ -398,7 +407,7 @@ function CadastroPaciente() {
                 </div>
 
                 <div className="col-6">
-                  <Form.Group controlId="PontoDeReferencia">
+                  <Form.Group controlId="pontoDeReferencia">
                     <Form.Label className="mb-0">
                       Ponto de referência
                     </Form.Label>
@@ -410,21 +419,40 @@ function CadastroPaciente() {
                   </Form.Group>
                 </div>
               </div>
+            
+              <Form.Group name="statusSistema">
+                <Form.Label>Status do Sistema:</Form.Label>
+                <div>
+                  <Form.Check
+                    type="radio"
+                    label="Ativo"
+                    value="Ativo"
+                    {...register("statusSistema", { required: "Selecione o status do sistema." })}
+                  />
+                  <Form.Check
+                    type="radio"
+                    label="Inativo"
+                    value="Inativo"
+                    {...register("statusSistema", { required: "Selecione o status do sistema." })}
+                  />
+                </div>
+                {errors.statusSistema && (
+                  <span className="error-message">{errors.statusSistema.message}</span>
+                )}
+              </Form.Group>
 
               <div>
                 <Button className="btn-salvar" type="submit">
-                  {" "}
-                  Salvar{" "}
+                  Salvar
                 </Button>
               </div>
             </form>
 
-            {/* {showSuccessAlert && (
-            <div className="alert alert-success mt-3">
-              {" "}
-              Usuário cadastrado com sucesso!{" "}
-            </div>
-          )} */}
+            {showSuccessAlert && (
+              <div className="alert alert-success mt-3">
+                Cadastro efetuado com sucesso!
+              </div>
+            )}
           </div>
         </section>
       </Container>
