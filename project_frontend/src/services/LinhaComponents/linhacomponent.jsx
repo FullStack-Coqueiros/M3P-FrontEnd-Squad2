@@ -1,28 +1,35 @@
-import './styles.css'
-import { useNavigate } from 'react-router-dom'
+import './styles.css';
+import { useNavigate } from 'react-router-dom';
 
-function LinhaProntuarioComponent({ registro, nome, plano }) {
-    const navigate = useNavigate()
+function LinhaComponent({ registro, nome, plano, onClick }) {
+  const navigate = useNavigate();
 
-    const navTo = () => {
-        navigate(`/prontuario/${registro}`)  
+  const handleClick = () => {
+    // Se uma função de clique for fornecida, chama ela
+    if (onClick) {
+      onClick(registro);
+    } else {
+      // Caso contrário, navega para o prontuário do paciente
+      navigate(`/prontuario/${registro}`);
     }
+  };
 
-    return (
-        <div className='card-linha' onClick={navTo}>
-            <div className="row w-100">
-                <div className="col-2">
-                    <span>{registro}</span>
-                </div>
-                <div className="col-6">
-                    <span>{nome}</span>
-                </div>
-                <div className="col-4">
-                    <span>{plano}</span>
-                </div>
-            </div>
+  return (
+    <div className='card-linha' onClick={handleClick}>
+      <div className="row w-100">
+        <div className="col-2">
+          <span>{registro}</span>
         </div>
-    )
+        <div className="col-6">
+          <span>{nome}</span>
+        </div>
+        <div className="col-4">
+          <span>{plano}</span>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default LinhaProntuarioComponent
+export default LinhaComponent;
+
