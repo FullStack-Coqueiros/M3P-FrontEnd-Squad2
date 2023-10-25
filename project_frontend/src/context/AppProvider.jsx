@@ -4,6 +4,7 @@ import { URL_API } from '../services';
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
+  const [dietas, setDietas] = useState([]);
   const [exames, setExames] = useState([]);
   const [pacientes, setPacientes] = useState([]);
   const [medicamentos, setMedicamentos] = useState([]);
@@ -112,6 +113,25 @@ const AppProvider = ({ children }) => {
       console.error('Erro ao adicionar consulta:', error);
     }
   };
+
+  const adicionarDieta = async (novaDieta) => {
+    try {
+      const response = await fetch(`${URL_API}/dietas`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(novaDieta),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao salvar a dieta .');
+      }
+
+      } catch (error) {
+      console.error('Erro ao adicionar dieta:', error);
+    }
+  };
   
   
 return (
@@ -124,6 +144,7 @@ return (
       handleAdicionarExame: adicionarExame,
       handleAdicionarMedicamento: adicionarMedicamento,
       handleAdicionarConsulta: adicionarConsulta,
+      handleAdicionarDieta: adicionarDieta,
       carregarPacientes,
       carregarExames
     }}
