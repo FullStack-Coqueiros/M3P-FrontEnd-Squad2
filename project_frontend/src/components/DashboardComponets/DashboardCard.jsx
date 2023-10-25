@@ -35,6 +35,9 @@ const DashboardCard = ({ estatisticas }) => {
             type: 'linear',
             beginAtZero: true,
             precision: 0,
+            ticks: {
+              stepSize: 1, // Define o intervalo entre os ticks como 1 para mostrar apenas números inteiros
+            },
           },
         },
         animation: {
@@ -42,6 +45,9 @@ const DashboardCard = ({ estatisticas }) => {
           easing: 'easeInOutQuad',
         },
       },
+      
+      
+      
     });
   }, [estatisticas]);
 
