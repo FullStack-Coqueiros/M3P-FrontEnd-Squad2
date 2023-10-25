@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
-
-
 const DashboardCard = ({ estatisticas }) => {
   const chartRef = useRef(null);
   const canvasRef = useRef(null);
@@ -22,11 +20,10 @@ const DashboardCard = ({ estatisticas }) => {
           {
             label: "Gráfico de estatísticas",
             backgroundColor: estatisticas.map((item) => item.color || "rgba(192, 171, 75, 0.2)"),
-            borderColor: ["black"], 
+            borderColor: ["black"],
             borderWidth: 1.0,
             data: estatisticas.map((item) => item.quantidade),
           },
-          
         ],
       },
       options: {
@@ -36,7 +33,7 @@ const DashboardCard = ({ estatisticas }) => {
             beginAtZero: true,
             precision: 0,
             ticks: {
-              stepSize: 1, // Define o intervalo entre os ticks como 1 para mostrar apenas números inteiros
+              stepSize: 1,
             },
           },
         },
@@ -45,9 +42,6 @@ const DashboardCard = ({ estatisticas }) => {
           easing: 'easeInOutQuad',
         },
       },
-      
-      
-      
     });
   }, [estatisticas]);
 
