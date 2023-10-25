@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAppContext } from '../../context/useAppContext';
 import { useParams } from 'react-router-dom';
+import Sidebar from '../../components/SidebarComponents/Sidebar';
 
 function Prontuario() {
   const { pacientes, consultas, exames, medicamentos, dietas, exercicios, carregarPacientes } = useAppContext();
@@ -23,6 +24,7 @@ function Prontuario() {
 
   return (
     <div>
+      <Sidebar />
       <h2>Prontuário do Paciente - {pacienteClicado.nomeCompleto}</h2>
 
       <div>

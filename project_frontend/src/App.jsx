@@ -38,7 +38,7 @@ function App() {
               <Route path='/cadastroMedicamento' element={<CadastroMedicamento />} />
               <Route path='/cadastroExercicio' element={<CadastroExercicio />} />
               <Route path='/listaProntuario' element={<ListaProntuario />} />
-              <Route path='/prontuario' element={<Prontuario />} />
+              <Route path='/prontuario/:id' element={<Prontuario />} />
               <Route path='/dashboard' element={<Dashboard />} />
             </Routes>
           </Router>

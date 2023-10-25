@@ -109,7 +109,7 @@
   ],
   "consultas": [
     {
-      "pacientId": "1",
+      "pacienteId": 1,
       "consulta": "sdasdasdadsad",
       "dataConsulta": "2023-10-20",
       "horaConsulta": "22:58",
@@ -117,11 +117,10 @@
       "medicacao": "asdasdasdasdasdasdas",
       "dosagem": "asdasdassdasda",
       "statusSistema": "ativo",
-      "pacienteId": null,
       "id": 1
     },
     {
-      "pacientId": "2",
+      "pacienteId": 1,
       "consulta": "Dores musculares",
       "dataConsulta": "2023-10-20",
       "horaConsulta": "22:58",
@@ -129,11 +128,10 @@
       "medicacao": "cerveja ",
       "dosagem": "tomar 30 litros de cerveja",
       "statusSistema": "Ativo",
-      "pacienteId": null,
       "id": 2
     },
     {
-      "pacientId": "1",
+      "pacienteId": 1,
       "consulta": "fratura nas costelas",
       "dataConsulta": "2023-10-20",
       "horaConsulta": "23:01",
@@ -141,11 +139,10 @@
       "medicacao": "cervejanol",
       "dosagem": "tomar 70 litro de cervejanol",
       "statusSistema": "Ativo",
-      "pacienteId": null,
       "id": 3
     },
     {
-      "pacientId": "1",
+      "pacienteId": 2,
       "consulta": "asdasdasdasdasdasdasdad",
       "dataConsulta": "2023-10-20",
       "horaConsulta": "23:21",
@@ -153,11 +150,10 @@
       "medicacao": "sadasdasdasdasdasdasdasdasdasdasdasd",
       "dosagem": "sdasdasdasdasdasdasdasdasdasda",
       "statusSistema": "Ativo",
-      "pacienteId": null,
       "id": 4
     },
     {
-      "pacienteId": 1,
+      "pacienteId": 2,
       "consulta": "Inflamação no dedinho do pé",
       "dataConsulta": "2023-10-22",
       "horaConsulta": "17:00",
