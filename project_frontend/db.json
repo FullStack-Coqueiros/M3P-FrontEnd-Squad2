@@ -167,5 +167,108 @@
       "statusSistema": "Ativo",
       "id": 5
     }
+  ],
+  "dietas": [
+    {
+      "pacienteId": 1,
+      "dieta": "Dieta Low Carb",
+      "data": "2023-10-21",
+      "horario": "12:00",
+      "tipo": "Low Carb",
+      "descricao": "Dieta com baixo teor de carboidratos",
+      "statusSistema": "Ativo",
+      "id": 1
+    },
+    {
+      "pacienteId": 2,
+      "dieta": "Dieta Mediterrânea",
+      "data": "2023-10-22",
+      "horario": "18:30",
+      "tipo": "Mediterrânea",
+      "descricao": "Dieta baseada nos padrões alimentares de países do Mediterrâneo",
+      "statusSistema": "Ativo",
+      "id": 2
+    }
+  ],
+  "usuarios": [
+    {
+      "nome": "Admin",
+      "cpf": "111.222.333-44",
+      "telefone": "(55) 5 5555-5555",
+      "genero": "Outro",
+      "email": "admin@example.com",
+      "senha": "senha123",
+      "tipo": "Administrador",
+      "statusSistema": "Ativo",
+      "id": 1
+    },
+    {
+      "nome": "Admin",
+      "cpf": "111.222.333-44",
+      "telefone": "(55) 5 5555-5555",
+      "genero": "Outro",
+      "email": "admin@example.com",
+      "senha": "senha123",
+      "tipo": "Administrador",
+      "statusSistema": "Ativo",
+      "id": 1
+    },
+    {
+      "nome": "Admin",
+      "cpf": "111.222.333-44",
+      "telefone": "(55) 5 5555-5555",
+      "genero": "Outro",
+      "email": "admin@example.com",
+      "senha": "senha123",
+      "tipo": "Administrador",
+      "statusSistema": "Ativo",
+      "id": 1
+    },
+    {
+      "nome": "Médico Fulano",
+      "cpf": "444.555.666-77",
+      "telefone": "(44) 4 4444-4444",
+      "genero": "Masculino",
+      "email": "medico@example.com",
+      "senha": "senha456",
+      "tipo": "Médico",
+      "statusSistema": "Ativo",
+      "id": 2
+    }
+  ],
+  "exercicios": [
+    {
+      "pacienteId": 1,
+      "nomeSerie": "Treino Cardio",
+      "data": "2023-10-23",
+      "horario": "08:00",
+      "tipo": "Resistência Aeróbica",
+      "quantidadeSemana": 3,
+      "descricao": "Treino cardiovascular para melhorar a resistência aeróbica.",
+      "statusSistema": "Ativo",
+      "id": 1
+    },
+    {
+      "pacienteId": 2,
+      "nomeSerie": "Treino Força",
+      "data": "2023-10-24",
+      "horario": "16:30",
+      "tipo": "Força",
+      "quantidadeSemana": 2,
+      "descricao": "Treino de força para fortalecimento muscular.",
+      "statusSistema": "Ativo",
+      "id": 2
+    },
+    {
+      "pacienteId": 1,
+      "nomeSerie": "Yoga Relaxante",
+      "data": "2023-10-25",
+      "horario": "19:00",
+      "tipo": "Flexibilidade",
+      "quantidadeSemana": 1,
+      "descricao": "Sessão de yoga para melhorar a flexibilidade e relaxamento.",
+      "statusSistema": "Ativo",
+      "id": 3
+    }
   ]
 }
