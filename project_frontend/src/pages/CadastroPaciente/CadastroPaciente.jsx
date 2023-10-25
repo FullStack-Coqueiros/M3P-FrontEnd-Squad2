@@ -71,7 +71,7 @@ function CadastroPaciente() {
                     <Form.Control
                       type="text"
                       placeholder="Nome completo"
-                      {...register("nome", {
+                      {...register("nomeCompleto", {
                         required: true,
                         minLength: 8,
                         maxLength: 64,
