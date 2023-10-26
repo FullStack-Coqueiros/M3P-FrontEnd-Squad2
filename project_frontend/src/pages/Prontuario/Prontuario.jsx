@@ -4,22 +4,23 @@ import { useParams } from 'react-router-dom';
 import Sidebar from '../../components/SidebarComponents/Sidebar';
 
 function Prontuario() {
-  const { consultas, pacientes, exames, medicamentos, dietas, exercicios, carregarPacientes } = useAppContext();
+  const { consultas, pacientes, exames, medicamentos, dietas, exercicios, carregarPacientes, carregarExames, carregarConsultas, carregarMedicamentos, carregarExercicios, carregarDietas } = useAppContext();
   const { id } = useParams();
   const pacienteIdClicado = parseInt(id, 10);
-
-  {console.log('Pacientes: ', pacientes)}
-  {console.log('Consultas: ', consultas)}
-  {console.log('Exames: ', exames)}
 
   useEffect(() => {
     async function fetchData() {
       await carregarPacientes();
+      await carregarExames();
+      await carregarConsultas();
+      await carregarMedicamentos();
+      await carregarExercicios();
+      await carregarDietas();
     }
 
 
     fetchData();
-  }, [carregarPacientes]);
+  }, [carregarPacientes,carregarExames,carregarConsultas,carregarMedicamentos,carregarExercicios,carregarDietas]);
 
   const pacienteClicado = pacientes.find((paciente) => paciente.id === pacienteIdClicado);
 
