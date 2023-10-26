@@ -91,9 +91,8 @@ const AppProvider = ({ children }) => {
 
   const adicionarDieta = async (novaDieta) => {
     try {
-      const response = await fetch(`${URL_API}/dietas`, {
-
-
+      const response = await fetch(`${URL_API}/dietas`, 
+      {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -111,11 +110,10 @@ const AppProvider = ({ children }) => {
       }
   };
 
-      
+  
   const adicionarExercicio = async (novoExercicio) => {
     try {
       const response = await fetch(`${URL_API}/exercicios`, {
-
 
         method: 'POST',
         headers: {

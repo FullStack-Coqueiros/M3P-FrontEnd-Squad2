@@ -271,41 +271,6 @@
   ],
   "exercicios": [
     {
-      "pacienteId": 1,
-      "nomeSerie": "Treino Cardio",
-      "data": "2023-10-23",
-      "horario": "08:00",
-      "tipo": "Resistência Aeróbica",
-      "quantidadeSemana": 3,
-      "descricao": "Treino cardiovascular para melhorar a resistência aeróbica.",
-      "statusSistema": "Ativo",
-      "id": 1
-    },
-    {
-      "pacienteId": 2,
-      "nomeSerie": "Treino Força",
-      "data": "2023-10-24",
-      "horario": "16:30",
-      "tipo": "Força",
-      "quantidadeSemana": 2,
-      "descricao": "Treino de força para fortalecimento muscular.",
-      "statusSistema": "Ativo",
-      "id": 2
-    },
-    {
-      "pacienteId": 1,
-      "nomeSerie": "Yoga Relaxante",
-      "data": "2023-10-25",
-      "horario": "19:00",
-      "tipo": "Flexibilidade",
-      "quantidadeSemana": 1,
-      "descricao": "Sessão de yoga para melhorar a flexibilidade e relaxamento.",
-      "statusSistema": "Ativo",
-      "id": 3
-    }
-  ],
-  "exercicios": [
-    {
       "pacienteId": 2,
       "medicamento": "agachamento ",
       "data": "2023-10-23",
@@ -314,6 +279,16 @@
       "quantidade": "50.00",
       "descrição": "fazer 50 agachamentos por dia. ",
       "id": 1
+    },
+    {
+      "pacienteId": 3,
+      "medicamento": "flexão ",
+      "data": "2023-10-26",
+      "horario": "21:13",
+      "tipo": "Força",
+      "quantidade": "20.00",
+      "descrição": "fazer 20 flexões por dia ",
+      "id": 2
     }
   ]
 }
