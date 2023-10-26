@@ -211,6 +211,16 @@
       "descricao": "Dieta baseada nos padrões alimentares de países do Mediterrâneo",
       "statusSistema": "Ativo",
       "id": 2
+    },
+    {
+      "pacienteId": 2,
+      "dieta": "sadsdfadsdssada",
+      "data": "2023-10-25",
+      "horario": "19:11",
+      "tipo": "Low Carb",
+      "descricao": "sadssadasdasdasdsdsdasd",
+      "statusSistema": "Ativo",
+      "id": 3
     }
   ],
   "usuarios": [

@@ -4,6 +4,7 @@ import { URL_API } from '../services';
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
+  const [dietas, setDietas] = useState([]);
   const [exames, setExames] = useState([]);
   const [pacientes, setPacientes] = useState([]);
   const [medicamentos, setMedicamentos] = useState([]);
@@ -114,13 +115,27 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const adicionarExercicio = async (novoExercicio) => {
+
+  const adicionarDieta = async (novaDieta) => {
     try {
-      const response = await fetch(`${URL_API}/exercicios`, {
+      const response = await fetch(`${URL_API}/dietas`, {
+
+
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+
+        body: JSON.stringify(novaDieta),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao salvar a dieta .');
+      }
+
+      } catch (error) {
+      console.error('Erro ao adicionar dieta:', error);
+
         body: JSON.stringify(novoExercicio),
       });
 
@@ -130,6 +145,7 @@ const AppProvider = ({ children }) => {
 
       } catch (error) {
       console.error('Erro ao adicionar exercício:', error);
+
     }
   };
   
@@ -144,7 +160,9 @@ return (
       handleAdicionarExame: adicionarExame,
       handleAdicionarMedicamento: adicionarMedicamento,
       handleAdicionarConsulta: adicionarConsulta,
-      handleAdicionarExercicio: adicionarExercicio,
+      feature/refaturacao/CadastroDieta
+      handleAdicionarDieta: adicionarDieta,
+
       carregarPacientes,
       carregarExames
     }}
