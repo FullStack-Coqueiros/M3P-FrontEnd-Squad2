@@ -66,6 +66,7 @@
       "statusSistema": true
     },
     {
+      "id": 3,
       "nomeCompleto": "Teste da silva Sauro",
       "genero": "Masculino",
       "dataNascimento": "2023-10-25",
@@ -89,8 +90,35 @@
       "complemento": "",
       "bairro": "Nossa Senhora do Rosário",
       "pontoDeReferencia": "apto",
+      "pacienteId": null
+    },
+    {
+      "nomeCompleto": "Maria das Dores",
+      "genero": "Feminino",
+      "dataNascimento": "1997-01-26",
+      "cpf": "616.134.876-49",
+      "rg": "222222",
+      "estadoCivil": "Viúvo",
+      "telefone": "(48) 9 9804-2989",
+      "email": "dl_magalhaes@hotmail.com",
+      "naturalidade": "Águas Mornas",
+      "contatoDeEmergencia": "(48) 9 8989-8989",
+      "alergias": "dsfaafasfasf fadsfasdfasd fdfa",
+      "cuidadosEspecificos": "fasdfasdfsd  asdf adsf adsf asdfasdfasfd",
+      "convenio": "Amil",
+      "numeroDoConvenio": "9999999",
+      "validadeDoConvenio": "2026-01-26",
+      "cep": "8803050",
+      "localidade": "Florianópolis",
+      "uf": "SC",
+      "logradouro": "Rodovia João Paulo",
+      "numero": "7894",
+      "complemento": "Bloco B Apt 202",
+      "bairro": "João Paulo",
+      "pontoDeReferencia": "Mecado Mateus",
+      "statusSistema": "Ativo",
       "pacienteId": null,
-      "id": 3
+      "id": 4
     }
   ],
   "exames": [
@@ -117,6 +145,18 @@
       "laboratorio": "dfdfdfdfdDSFASDFSDF",
       "statusSistema": "Ativo",
       "id": 2
+    },
+    {
+      "pacienteId": 4,
+      "exame": "abbbbbbbbbbbbbbbbbbb",
+      "tipo": "bbbbbbbbbbbbbbbb",
+      "dataExame": "2023-10-30",
+      "horaExame": "15:55",
+      "resultados": "DF F AF AF AS FAS FA FA F AF A FA F",
+      "documento": "http://www.bing.com.br/exame",
+      "laboratorio": "bbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "statusSistema": "Ativo",
+      "id": 3
     }
   ],
   "medicamentos": [
@@ -132,6 +172,18 @@
       "observações": "jbaodbaushcbssjiadvhsdhsdosidb",
       "statusSistema": "ativo ",
       "id": 2
+    },
+    {
+      "pacienteId": 4,
+      "medicamento": "D A FA FA SF AF A F",
+      "data": "2023-10-26",
+      "horario": "15:55",
+      "tipo": "Creme",
+      "quantidade": "3",
+      "unidade": "Mgc",
+      "observações": "SDF F SAF AF ASF ASF A FA F F",
+      "statusSistema": "1",
+      "id": 3
     }
   ],
   "consultas": [
@@ -189,6 +241,17 @@
       "dosagem": "Não bater o dedinho na mesa novamente.",
       "statusSistema": "Ativo",
       "id": 5
+    },
+    {
+      "pacienteId": 4,
+      "consulta": "dghgfh hdh h g sd gs dg",
+      "dataConsulta": "2023-10-26",
+      "horaConsulta": "16:55",
+      "descricao": "ADF  ADF A FA DFA FA FA F AF ASDF  F",
+      "medicacao": "fqwfqwqwer qewr",
+      "dosagem": "werret wret wert ",
+      "statusSistema": "Ativo",
+      "id": 6
     }
   ],
   "dietas": [
@@ -221,6 +284,16 @@
       "descricao": "sadssadasdasdasdsdsdasd",
       "statusSistema": "Ativo",
       "id": 3
+    },
+    {
+      "pacienteId": 4,
+      "dieta": "SFGAS FA SDFASFASF",
+      "horario": "11:55",
+      "data": "2023-10-26",
+      "tipo": "Cetogênica",
+      "descricao": "ADFAFSDF DSF ADFASFASFAF",
+      "statusSistema": "Ativo",
+      "id": 4
     }
   ],
   "usuarios": [
@@ -271,49 +344,24 @@
   ],
   "exercicios": [
     {
-      "pacienteId": 1,
-      "nomeSerie": "Treino Cardio",
-      "data": "2023-10-23",
-      "horario": "08:00",
-      "tipo": "Resistência Aeróbica",
-      "quantidadeSemana": 3,
-      "descricao": "Treino cardiovascular para melhorar a resistência aeróbica.",
-      "statusSistema": "Ativo",
-      "id": 1
-    },
-    {
       "pacienteId": 2,
-      "nomeSerie": "Treino Força",
-      "data": "2023-10-24",
-      "horario": "16:30",
-      "tipo": "Força",
-      "quantidadeSemana": 2,
-      "descricao": "Treino de força para fortalecimento muscular.",
-      "statusSistema": "Ativo",
-      "id": 2
-    },
-    {
-      "pacienteId": 1,
-      "nomeSerie": "Yoga Relaxante",
-      "data": "2023-10-25",
-      "horario": "19:00",
-      "tipo": "Flexibilidade",
-      "quantidadeSemana": 1,
-      "descricao": "Sessão de yoga para melhorar a flexibilidade e relaxamento.",
-      "statusSistema": "Ativo",
-      "id": 3
-    }
-  ],
-  "exercicios": [
-    {
-      "pacienteId": 2,
-      "medicamento": "agachamento ",
+      "exercicio": "agachamento ",
       "data": "2023-10-23",
       "horario": "21:00",
       "tipo": "Resistência Muscular",
       "quantidade": "50.00",
       "descrição": "fazer 50 agachamentos por dia. ",
       "id": 1
+    },
+    {
+      "pacienteId": 1,
+      "exercicio": "SDFASFAS   FASFASF ASFASF",
+      "data": "2023-10-26",
+      "horario": "11:55",
+      "tipo": "Resistência Aeróbica",
+      "quantidade": "7",
+      "descrição": "ASDFA ADF ADSF ASDF ASF ASF F",
+      "id": 2
     }
   ]
 }
