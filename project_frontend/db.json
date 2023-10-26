@@ -345,11 +345,7 @@
   "exercicios": [
     {
       "pacienteId": 2,
-<<<<<<< HEAD
-      "exercicio": "agachamento ",
-=======
       "medicamento": "agachamento ",
->>>>>>> dfec4ba9d04451ed2326e184069f2a98e2041f33
       "data": "2023-10-23",
       "horario": "21:00",
       "tipo": "Resistência Muscular",
@@ -358,15 +354,6 @@
       "id": 1
     },
     {
-<<<<<<< HEAD
-      "pacienteId": 1,
-      "exercicio": "SDFASFAS   FASFASF ASFASF",
-      "data": "2023-10-26",
-      "horario": "11:55",
-      "tipo": "Resistência Aeróbica",
-      "quantidade": "7",
-      "descrição": "ASDFA ADF ADSF ASDF ASF ASF F",
-=======
       "pacienteId": 3,
       "medicamento": "flexão ",
       "data": "2023-10-26",
@@ -374,7 +361,6 @@
       "tipo": "Força",
       "quantidade": "20.00",
       "descrição": "fazer 20 flexões por dia ",
->>>>>>> dfec4ba9d04451ed2326e184069f2a98e2041f33
       "id": 2
     }
   ]
