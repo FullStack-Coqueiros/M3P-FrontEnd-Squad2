@@ -118,9 +118,8 @@ const AppProvider = ({ children }) => {
 
   const adicionarDieta = async (novaDieta) => {
     try {
-      const response = await fetch(`${URL_API}/dietas`, {
-
-
+      const response = await fetch(`${URL_API}/dietas`, 
+      {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -135,6 +134,18 @@ const AppProvider = ({ children }) => {
 
       } catch (error) {
       console.error('Erro ao adicionar dieta:', error);
+      }
+  };
+
+  const adicionarExercicio = async (novoExercicio) => {
+    try {
+      const response = await fetch(`${URL_API}/exercicios`, 
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
 
         body: JSON.stringify(novoExercicio),
       });
@@ -160,9 +171,8 @@ return (
       handleAdicionarExame: adicionarExame,
       handleAdicionarMedicamento: adicionarMedicamento,
       handleAdicionarConsulta: adicionarConsulta,
-      feature/refaturacao/CadastroDieta
       handleAdicionarDieta: adicionarDieta,
-
+      handleAdicionarExercicio: adicionarExercicio,
       carregarPacientes,
       carregarExames
     }}
