@@ -32,7 +32,7 @@ function Login() {
     if (!resposta) {
       return Alert.alert("usuário não encontrado");
     }
-    navigate('/inicio')
+    navigate('/dashboard')
 }
 
   function onSubmit() {
@@ -43,33 +43,42 @@ function Login() {
   return (
     <div>
       <Navbar />
-      <h1>Medical Care:</h1>
-      <div className="text">
-        <h3>deseja boas vindas!</h3>
-      </div>
+      
       <section className="area-login">
-        <form className="form-login" onSubmit={onSubmit}>
-        <img  src="/src/assets/images/login.jpeg" alt="Logo" />
-
-
+        <div className="container mt-5">
+        <img  src="/src/assets/images/logo_mc.jpeg" class="rounded float-left" alt="Logo" />
           <h2>Login</h2>
+        <form className="form-login" onSubmit={onSubmit}>
+         
+        
           <Form.Group className="col-8" controlId="Email">
             <Form.Label>Email:</Form.Label>
             <Form.Control type="email" placeholder="Digite seu email" {...register("Email")} />
             <span className="errors">{errors?.email?.message}</span>
           </Form.Group>
-
+      
+       
           <Form.Group className="col-8" controlId="Senha">
             <Form.Label>Senha:</Form.Label>
             <Form.Control type="password" placeholder="Digite sua senha" {...register("Senha")} />
             <span className="errors">{errors?.password?.message}</span>
           </Form.Group>
+    
 
+          <div>
           <Button type="submit" variant="primary" id="btnLogin"> Entrar! </Button>
-          <a className="btn btn-light" href="/user">Criar Conta</a>
-          <Link to="RecuperarSenha">Esqueceu sua senha?</Link>
+          </div>
 
+          <div>
+          <a className="btn btn-secondary" href="/criarconta">Criar Conta</a>
+          </div>
+
+          <div>
+            <Link to="resetsenha">Esqueceu sua senha?</Link>
+          </div>
+          
         </form>
+      </div>
       </section>
     </div>
   );

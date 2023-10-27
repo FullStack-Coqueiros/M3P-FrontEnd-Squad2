@@ -10,6 +10,7 @@ const AppProvider = ({ children }) => {
   const [medicamentos, setMedicamentos] = useState([]);
   const [consultas, setConsultas] = useState([]);
   const [exercicios, setExercicios] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
 
   const adicionarExame = async (novoExame) => {
     try {
@@ -30,6 +31,18 @@ const AppProvider = ({ children }) => {
       console.error('Erro ao adicionar exame:', error);
     }
   };
+
+  const carregarUsuario = async () => {
+    try {
+      const usuariosResposta = await fetch(`${URL_API}/usuarios`);
+
+        const usuariosData = await usuariosResposta.json();
+
+        setUsuarios(usuariosData);
+    } catch (error) {
+        console.error('Erro ao carregar usuarios:', error);
+    }
+  }
 
   const adicionarMedicamento = async (novoMedicamento) => {
     try {
@@ -131,6 +144,29 @@ const AppProvider = ({ children }) => {
 
     }
   };
+
+  const adicionarUsuario = async (novoUsuario) => {
+    try {
+      const resposta = await fetch(`${URL_API}/usuarios`, 
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+        body: JSON.stringify(novoUsuario),
+      });
+
+      if (!resposta.ok) {
+        throw new Error('Erro ao salvar usuário .');
+      }
+
+      setUsuarios([...usuarios, { ...novoUsuario,}]);
+
+      } catch (error) {
+      console.error('Erro ao adicionar usuário:', error);
+      }
+  };
   
   const carregarPacientes = async () => {
     try {
@@ -207,12 +243,14 @@ const AppProvider = ({ children }) => {
 return (
   <AppContext.Provider
     value={{
+      usuarios,
       pacientes,
       consultas,
       exames,
       dietas,
       medicamentos,
       exercicios,
+      setUsuarios,
       setPacientes,
       setConsultas,
       setExames,
@@ -224,12 +262,14 @@ return (
       handleAdicionarMedicamento: adicionarMedicamento,
       handleAdicionarConsulta: adicionarConsulta,
       handleAdicionarExercicio: adicionarExercicio,
+      handleAdicionarUsuario: adicionarUsuario,
       handleAdicionarDieta: adicionarDieta,
       carregarPacientes,
       carregarConsultas,
       carregarExames,
       carregarDietas,
       carregarMedicamentos,
+      carregarUsuario,
       carregarExercicios
     }}
   >
