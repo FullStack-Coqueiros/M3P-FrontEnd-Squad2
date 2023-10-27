@@ -1,0 +1,101 @@
+body .dashboard-container {
+    margin-left: 200px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+}
+
+.custom-card-title {
+    font-size: 20px;
+    color: #3742a7;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.custom-card-title div {
+    color: #3742a7;
+}
+
+.custom-card {
+    width: 300px;
+    height: 400px;
+    text-align: center;
+    display: block;
+    flex-direction: column;
+    align-items: center;
+}
+
+.custom-card .foto {
+    margin-top: 3rem;
+}
+
+.custom-card.card {
+    border: 1px solid #84aaf0;
+}
+
+.custom-h1 {
+    margin: 5rem 0;
+    font-size: 50px;
+    color: #3742a7;
+}
+
+.btn-ver {
+    background: linear-gradient(-50deg, #99d9ec, #1c4ccfe5);
+    border: none;
+    height: 3em;
+    margin: 20px;
+    padding: 5px;
+    outline: none;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#inputPesquisaDashboard {
+    margin: -3rem;
+    background-color: #9de2ee2c;
+    border: 1px solid #84aaf0;
+    padding: 10px;
+    margin-bottom: 15px;
+    display: block;
+    width: 400px;
+}
+
+#linhaSeparadora {
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin: 2px 0 8px;
+}
+
+#inputPesquisaDashboard::placeholder {
+    color: #999;
+}
+
+#inputPesquisaDashboard:focus {
+    outline: none;
+    border-color: #66afe9;
+    box-shadow: 0 0 10px #66afe9;
+}
+
+
+#inputPesquisaDashboard::-webkit-input-placeholder {
+    text-align: center;
+}
+
+#inputPesquisaDashboard:-moz-placeholder {
+    text-align: center;
+}
+
+#inputPesquisaDashboard::-moz-placeholder {
+    text-align: center;
+}
+
+#inputPesquisaDashboard:-ms-input-placeholder {
+    text-align: center;
+}

@@ -8,6 +8,7 @@ import DashboardCard from "../../components/DashboardComponets/DashboardCard";
 
 import { URL_API } from "../../services";
 
+import "./dashboardPage.css"
 
 function Dashboard() {
   const [usuarios, setUsuarios] = useState([]);
@@ -19,22 +20,23 @@ function Dashboard() {
   const [exercicios, setExercicios] = useState([]);
   const [termoPesquisa, setTermoPesquisa] = useState("");
   const [termoPesquisaUsuario, setTermoPesquisaUsuario] = useState("");
-  
-  const isAdmin = true; // ou const isAdmin = false;
-
-  if (isAdmin) {
-    
-    console.log("Usuário é um administrador.");
-  } else {
-    
-    console.log("Usuário não é um administrador.");
-  }
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
+    // Lógica para determinar se o usuário é um administrador
+    const IsAdmin = true; // ou false;
+
+    setIsAdmin(IsAdmin);
+
+    console.group(IsAdmin ? "Admin Logs" : "Não-Admin Logs");
+    console.log(IsAdmin ? "Usuário é um administrador." : "Usuário não é um administrador.");
+    console.groupEnd();
+
     fetch(`${URL_API}/usuarios`)
       .then(response => response.json())
       .then(data => setUsuarios(data))
       .catch(error => console.error('Erro ao buscar dados:', error));
+
 
     fetch(`${URL_API}/pacientes`)
       .then(response => response.json())
@@ -69,34 +71,38 @@ function Dashboard() {
 
   return (
     <>
+
       <Sidebar />
-      <Container>
+      <Container className="dashboard-container">
 
         {isAdmin ? (
           // Se for administrador
           <>
-        <h1>Estatísticas do Sistema</h1>
-        <DashboardCard estatisticas={[
-  { titulo: "Usuários Cadastrados", quantidade: usuarios.length, color: "#192fac" },
-  { titulo: "Pacientes Cadastrados", quantidade: pacientes.length, color: "rgb(100, 161, 231)" },
-  { titulo: "Consultas Realizadas", quantidade: consultas.length, color: "#9bc6e2" },
-  { titulo: "Exames Realizados", quantidade: exames.length, color: "#88def3" },
-  { titulo: "Dietas Realizadas", quantidade: dietas.length, color: "#23dada" },
-  { titulo: "Medicamentos prescritos", quantidade: medicamento.length, color: "#1dd1aa" },
-  { titulo: "Exercícios solicitados", quantidade: exercicios.length, color: "#33ff66" },
-]} />
-            <h1>Pesquise o usuario</h1>
-            <div className="cards">
-              <div className="d-flex justify-content-center mb-4">
-                <Form.Control
-                  type="text"
-                  placeholder="Pesquisar por nome, CPF, telefone ou e-mail"
-                  value={termoPesquisaUsuario}
-                  onChange={(e) => setTermoPesquisaUsuario(e.target.value)}
-                />
-              </div>
-            </div>
-            <Row xs={1} sm={2} md={3} className="mb-4">
+            {/* <h1>Estatísticas do Sistema</h1> */}
+            <DashboardCard estatisticas={[
+              { titulo: "Usuários Cadastrados", quantidade: usuarios.length, color: "#192fac" },
+              { titulo: "Pacientes Cadastrados", quantidade: pacientes.length, color: "#64a1e7" },
+              { titulo: "Consultas Realizadas", quantidade: consultas.length, color: "#9bc6e2" },
+              { titulo: "Exames Realizados", quantidade: exames.length, color: "#88def3" },
+              { titulo: "Dietas Realizadas", quantidade: dietas.length, color: "#23dada" },
+              { titulo: "Medicamentos prescritos", quantidade: medicamento.length, color: "#1dd1aa" },
+              { titulo: "Exercícios solicitados", quantidade: exercicios.length, color: "#33ff66" },
+            ]} />
+
+            <h1 className="custom-h1">Pesquise o usuário</h1>
+
+
+            <Form.Control
+              className="pesquisa"
+              id="inputPesquisaDashboard"
+              type="text"
+              placeholder="Pesquisar por nome, CPF, telefone ou e-mail"
+              value={termoPesquisaUsuario}
+              onChange={(e) => setTermoPesquisaUsuario(e.target.value)}
+            />
+
+
+            <Row className="cards d-flex justify-content-center">
               {usuarios
                 .filter((usuario) => {
                   const termoLowerCase = termoPesquisaUsuario.toLowerCase();
@@ -107,38 +113,41 @@ function Dashboard() {
                     usuario.email.toLowerCase().includes(termoLowerCase)
                   );
                 })
-                  .map((usuario, index) => (
-                    <Col key={index} className="mb-4">
-                      <Card style={{ width: "300px", height: "400px" }} className="text-center d-flex flex-column align-items-center">
-                        <IoPersonCircleOutline className="foto mt-3" size={150} color="#000" />
-                        <Card.Body className="mt-3">
-                          <Card.Title>
-                            <div>{usuario.nome}</div>
-                            <div>{usuario.tipo}</div>
-                            <div>{usuario.genero}</div>
-                            {/* <div>{usuario.cpf}</div> */}
-                            <div>{usuario.telefone}</div>
-                            <div>{usuario.email}</div>
-                          </Card.Title>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                  ))}
+                .map((usuario, index) => (
+                  <Col key={index} className="cards">
+                    <Card className="custom-card mb-4">
+                      <IoPersonCircleOutline className="foto mt-3" size={150} color="#3742a7" />
+                      <Card.Body className="mt-3">
+                        <Card.Title className="custom-card-title">
+                          <div>{usuario.nome}</div>
+                          <div>{usuario.tipo}</div>
+                          <div>{usuario.genero}</div>
+                          {/* <div>{usuario.cpf}</div> */}
+                          <div>{usuario.telefone}</div>
+                          <div>{usuario.email}</div>
+                        </Card.Title>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
             </Row>
 
+            <div id="linhaSeparadora"></div>
 
-            <h1>Pesquise o paciente</h1>
-            <div className="cards">
-              <div className="d-flex justify-content-center mb-4">
-                <Form.Control
-                  type="text"
-                  placeholder="Pesquisar por nome, CPF, telefone ou e-mail"
-                  value={termoPesquisa}
-                  onChange={(e) => setTermoPesquisa(e.target.value)}
-                />
-              </div>
-            </div>
-            <Row xs={1} sm={2} md={3} className="mb-4">
+            <h1 className="custom-h1">Pesquise o Paciente</h1>
+
+
+            <Form.Control
+              className="pesquisa"
+              id="inputPesquisaDashboard"
+              type="text"
+              placeholder="Pesquisar por nome, CPF, telefone ou e-mail"
+              value={termoPesquisa}
+              onChange={(e) => setTermoPesquisa(e.target.value)}
+            />
+
+
+            <Row className="cards d-flex justify-content-center">
               {pacientes
                 .filter((paciente) => {
                   const termoLowerCase = termoPesquisa.toLowerCase();
@@ -150,19 +159,19 @@ function Dashboard() {
                   );
                 })
                 .map((paciente) => (
-                  <Col key={paciente.id} className="mb-4">
-                    <Card style={{ width: "300px", height: "400px" }} className="text-center d-flex flex-column align-items-center">
-                      <IoPersonCircleOutline className="foto mt-3" size={150} color="#000" />
-                      <Card.Body className="mt-3">
-                        <Card.Title>
+                  <Col key={paciente.id} className="cards">
+                    <Card className="custom-card mb-4">
+                      <IoPersonCircleOutline className="foto mt-3" size={150} color="#3742a7" />
+                      <Card.Body className="mt-10">
+                        <Card.Title className="custom-card-title">
                           <div>{paciente.nomeCompleto}</div>
                           <div>Nascimento: {paciente.dataNascimento}</div>
                           <div>Telefone: {paciente.telefone}</div>
                           <div>Email: {paciente.email}</div>
                         </Card.Title>
                       </Card.Body>
-                      <Col xs={12}>
-                        <Link to={`/Prontuario${paciente.id}`}>
+                      <Col >
+                        <Link to={`/prontuario/${paciente.id}`}>
                           <Button className="btn-ver">Ver mais</Button>
                         </Link>
                       </Col>
@@ -171,11 +180,20 @@ function Dashboard() {
                 ))}
             </Row>
           </>
+
         ) : (
           // Se não for administrador
           <>
-            <h2>PACIENTES</h2>
-            <Row xs={1} sm={2} md={3} className="mb-4">
+            <h1 className="custom-h1">Pesquise o Paciente</h1>
+            <Form.Control
+              className="pesquisa"
+              id="inputPesquisaDashboard"
+              type="text"
+              placeholder="Pesquisar por nome, CPF, telefone ou e-mail"
+              value={termoPesquisa}
+              onChange={(e) => setTermoPesquisa(e.target.value)}
+            />
+            <Row className="cards d-flex justify-content-center">
               {pacientes
                 .filter((paciente) => {
                   const termoLowerCase = termoPesquisa.toLowerCase();
@@ -187,19 +205,19 @@ function Dashboard() {
                   );
                 })
                 .map((paciente) => (
-                  <Col key={paciente.id} className="mb-4">
-                    <Card style={{ width: "300px", height: "400px" }} className="text-center">
-                      <IoPersonCircleOutline className="foto mt-3" size={150} color="#000" />
+                  <Col key={paciente.id} className="cards">
+                    <Card className="custom-card mb-4">
+                      <IoPersonCircleOutline className="foto mt-3" size={150} color="#3742a7" />
                       <Card.Body className="mt-3">
-                        <Card.Title>
+                        <Card.Title className="custom-card-title">
                           <div>{paciente.nomeCompleto}</div>
                           <div>Nascimento: {paciente.dataNascimento}</div>
                           <div>Telefone: {paciente.telefone}</div>
-                        
+                          <div>Email: {paciente.email}</div>
                         </Card.Title>
                       </Card.Body>
                       <Col xs={12}>
-                        <Link to={`/Prontuario${paciente.id}`}>
+                        <Link to={`/prontuario/${paciente.id}`}>
                           <Button className="btn-ver">Ver mais</Button>
                         </Link>
                       </Col>
