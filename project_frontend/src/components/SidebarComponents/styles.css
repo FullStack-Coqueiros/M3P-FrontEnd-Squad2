@@ -1,4 +1,5 @@
 .sidebar {
+  top: 0;
   margin: 0;
   padding: 0;
   width: 218px;
@@ -9,76 +10,35 @@
   left: 0;
 }
 
-.logo2 {
-  margin-top: 20px;
-  margin: 30px 15px 15px 10px;
-  width: 200px;
+.sidebar h4 {
+  margin-top: 100px;
+  font-size: 15px;
 }
 
-/* Estilos para os links dentro da barra lateral */
 .sidebar a {
   display: block;
   color: black;
-  padding: 16px;
+  padding: 20px;
   text-decoration: none;
 }
 
-/* Estilos para links ativos */
+
 .sidebar a.active {
   background-color: #0a338b;
   color: rgb(245, 233, 233);
 }
 
-/* Estilos para links quando o mouse está sobre eles */
+
 .sidebar a:hover:not(.active) {
   background-color: #91a4b6;
   color: white;
 }
 
-/* Adicionando uma regra de mídia para telas menores que 700 pixels */
+
 @media screen and (max-width: 700px) {
   .sidebar {
     width: 100%;
     height: auto;
     position: relative;
   }
-
-  .sidebar a {
-    float: left;
-  }
-
-  div.content {
-    margin-left: 0;
-  }
-}
-
-/* Adicionando uma regra de mídia para telas menores que 400 pixels */
-@media screen and (max-width: 400px) {
-  .sidebar a {
-    text-align: center;
-    float: none;
-  }
-}
-
-/* styles.css button */
-.logout-button {
-  margin-top: 200px;
-  /* Adicione a margem superior desejada */
-
-  display: flex;
-  /* Para alinhar o ícone e o texto horizontalmente */
-  align-items: center;
-  /* Para centralizar verticalmente */
-
-}
-
-.logout-button .logout-link {
-  text-decoration: none;
-  color: #536980;
-  font-weight: bold;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  padding: 8px 16px;
-  border-radius: 5px;
 }

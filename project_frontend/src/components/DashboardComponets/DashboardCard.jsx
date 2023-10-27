@@ -1,5 +1,8 @@
+
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+
+import "./dashboardCard.css"
 
 const DashboardCard = ({ estatisticas }) => {
   const chartRef = useRef(null);
@@ -19,7 +22,7 @@ const DashboardCard = ({ estatisticas }) => {
         datasets: [
           {
             label: "Gráfico de estatísticas",
-            backgroundColor: estatisticas.map((item) => item.color || "rgba(192, 171, 75, 0.2)"),
+            backgroundColor: estatisticas.map((item) => item.color || "#c0ab4b33"),
             borderColor: ["black"],
             borderWidth: 1.0,
             data: estatisticas.map((item) => item.quantidade),
@@ -40,6 +43,16 @@ const DashboardCard = ({ estatisticas }) => {
         animation: {
           duration: 1000,
           easing: 'easeInOutQuad',
+        },
+        
+        plugins: {
+          legend: {
+            labels: {
+              font: {
+                size: 20, // Ajuste o tamanho da fonte conforme necessário
+              },
+            },
+          },
         },
       },
     });

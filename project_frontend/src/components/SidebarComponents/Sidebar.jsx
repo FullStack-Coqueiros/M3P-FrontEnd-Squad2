@@ -11,6 +11,7 @@ import './styles.css'
 function Sidebar() {
   return (
     <div className="sidebar">
+         <h4>MENU</h4>
       <Link className="active" to="/Dashboard" >  <BsFillHouseAddFill />  HOME</Link>
       <Link to="/cadastrousuario" > < BsPersonPlus/> Cadastro Usuário </Link>
       <Link to="/cadastropaciente" > <BsPersonPlus /> Cadastro Paciente</Link>
@@ -20,7 +21,6 @@ function Sidebar() {
       <Link to="/cadastroExercicio" > < CiDumbbell /> Cadastro Exercicio </Link>
       <Link to="/cadastroMedicamento" > <CiPill  /> Cadastro Medicamento </Link>
       <Link to="/listaProntuario" > <BsListCheck /> Lista Prontuario </Link>
-      <Link to="/prontuario" > <BiLogOut /> prontuario </Link>
       <div className="logout-button">
         <Link to="/" className="logout-link">
           <BiLogOut /> Sair
