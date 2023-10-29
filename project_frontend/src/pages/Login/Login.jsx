@@ -40,7 +40,7 @@ function Login() {
 
     try {
       const resposta = await CheckLogin(tentativaLogin);
-      if (!resposta) {
+      if (resposta === null) {
         alert("Usuário não encontrado");
       } else {
         navigate('/dashboard');

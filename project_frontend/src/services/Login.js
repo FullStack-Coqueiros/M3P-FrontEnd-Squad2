@@ -1,10 +1,9 @@
-import { URL_API } from "."
+import { useContext } from 'react';
+import {AppContext} from '../context/AppProvider'
 
 export async function CheckLogin(tentativaLogin) {
-    console.log("Antes do stringify");
-
+    const {setToken} = useContext(AppContext);
     const dados = JSON.stringify(tentativaLogin);
-    console.log("Tentou a busca");
     try {
         const response = await fetch('https://localhost:7083/api/Usuario/login',{
             method :'POST',
@@ -15,10 +14,12 @@ export async function CheckLogin(tentativaLogin) {
             alert("Solicitação bem sucedida.");
             const responseData = await response.json(); 
 
-            const token = responseData.tokenJwt;
+            const token = responseData.token;
+            console.log(token);
+            setToken(token);
             return token; 
         } else {
-            alert('Erro ao criar o post.');
+            return null;
         }
     } catch (error) {
         alert('Erro na solicitação:', error.message);
