@@ -6,14 +6,13 @@ import Sidebar from "../../components/SidebarComponents/Sidebar"
 import { URL_API } from "../../services";
 
 
-
-
 function CadastroExercicios() {
   const { handleAdicionarExercicio, handleDeletarExercicio, pacientes, setPacientes, carregarPacientes } = useAppContext();
   const [isSaved, setIsSaved] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const [editar, setEditar] = useState(true);
+  const [deletar, setDeletar] = useState(true);
 
   useEffect(() => {
       
@@ -21,36 +20,62 @@ function CadastroExercicios() {
   }, []);
 
   function createExercicio(exercicio) {
-
       const novoExercicio = {
           ...exercicio, 
-          pacienteId: Number(exercicio.pacienteId)
-      
-      }
-      
+          pacienteId: Number(exercicio.pacienteId)      
+      }  
 
       handleAdicionarExercicio(novoExercicio);
       setIsSaved(true);
       setShowSuccessAlert(true);
-
       
       reset();
       
-      console.log('Dados do exercício para o paciente:', exercicio);
-
-      
+      console.log('Dados do exercício para o paciente:', exercicio);      
   }
   
-  const deletarExercicio = (exercicioId) => {
-
-      const exercicioParaDeletar = exercicios.find((exercicio) => exercicio.id === exercicioId);
-
-      if (exercicioParaDeletar) {
-          handleDeletarExercicio(exercicioId);
-      } else {
-          console.warn('Tentativa de deletar exercício inexistente.');
-      }
+  const handleDeleteExercicio = async (e, exercicioId) => {
+    e.preventDefault();
+    
+    window.confirm("Tem certeza que deseja excluir o exercicio?") &&
+      apiClient
+        .delete(`/exercicio/${exercicioId}`)
+        .then(() => {
+          const novosExercicios = exercicios.filter((exercicio) => exercicio.id !== exercicioId);
+          setDietas(novosExercicios);
+          alert("Exercicio excluído com sucesso!");
+        })
+        .catch((erro) => console.error(erro));
   };
+
+  
+  const handleEditarExercicio = async (e) => {
+    e.preventDefault();
+
+    window.confirm("Tem certeza que deseja editar exercicio?") &&
+      apiClient
+        .put(`/exercicios/${id}`, exercicios)
+        .then(() => {
+          window.alert("Exercicio editado com sucesso!");
+          navigate("/");
+        })
+        .catch((erro) => console.error(erro));
+  };
+
+  const handlePaciente = async (e, paciente, exercicios) => {
+    e.preventDefault();
+
+    const novosExercicios = exercicios.filter((exercicio) => exercicio.pacienteId == paciente.Id);
+    if(novosExercicios == null || novosExercicios.length == 0 ) {
+      setEditar(true);
+      setDeletar(true);
+      }
+    else {
+      exercicios = novosExercicios[0];
+      setEditar(false);
+      setDeletar(false);
+    }
+  }
 
   return (
       <>
@@ -146,10 +171,18 @@ function CadastroExercicios() {
                           </Col>
                       </Row>
                       <div >
-                          <Button className="btn-salvar" type="submit" > Salvar </Button>
-                          {/* <Button className="btn-editar" type="button" disable={!handleAdicionarExercicio} > Editar </Button>
-                          <Button className="btn-reset" type="reset" disable={!handleAdicionarExercicio} > Deletar </Button> */}
+                          <Button className="btn-salvar" type="submit" > Salvar </Button>                     
                       </div>
+
+                      <div>
+                        <Button disabled={deletar} onClick={(e) => handleDeleteExercicio(e, exercicios.id)}>
+                            Excluir
+                        </Button>
+                        <Button disabled={editar} onClick={(e) => handleEditarExercicio(e)}>
+                            Editar
+                        </Button>
+                    </div>
+
                   </form>
 
                   {showSuccessAlert && (<div className="alert alert-success mt-3"> Exercício cadastrado com sucesso!
