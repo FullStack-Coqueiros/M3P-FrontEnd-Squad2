@@ -11,6 +11,32 @@ const AppProvider = ({ children }) => {
   const [consultas, setConsultas] = useState([]);
   const [exercicios, setExercicios] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
+  const [token, setToken] = useState("");
+  
+  const login = async (data) => {
+    const dados = JSON.stringify(data);
+    try {
+        const response = await fetch("https://localhost:7083/api/Usuario/login", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: dados
+        });
+
+        if(response.ok){
+            alert ("Solicitação bem sucedida");
+            console.log(response)
+            const responseData = await response.json();
+            const _token = responseData.token;
+            console.log(_token);
+            setToken(_token)
+            return _token; // Retorna o token para quem chama a função
+        }else{
+            alert ("Erro ao criar o post.");
+        }
+    } catch (error) {
+        alert ("Erro na solicitação", Error.message)   ;
+    }
+}
 
   const adicionarExame = async (novoExame) => {
     try {
@@ -250,6 +276,8 @@ return (
       dietas,
       medicamentos,
       exercicios,
+      token,
+      login,
       setUsuarios,
       setPacientes,
       setConsultas,
@@ -279,3 +307,4 @@ return (
 };
 
 export default AppProvider;
+
