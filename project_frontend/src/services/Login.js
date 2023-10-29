@@ -1,10 +1,12 @@
 import { useContext } from 'react';
-import {AppContext} from '../context/AppProvider'
+
 
 export async function CheckLogin(tentativaLogin) {
-    const {setToken} = useContext(AppContext);
-    const dados = JSON.stringify(tentativaLogin);
+    
     try {
+        const dados = JSON.stringify(tentativaLogin);
+
+
         const response = await fetch('https://localhost:7083/api/Usuario/login',{
             method :'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -16,7 +18,6 @@ export async function CheckLogin(tentativaLogin) {
 
             const token = responseData.token;
             console.log(token);
-            setToken(token);
             return token; 
         } else {
             return null;
@@ -24,10 +25,4 @@ export async function CheckLogin(tentativaLogin) {
     } catch (error) {
         alert('Erro na solicitação:', error.message);
     }
-    // const usuarios = await resposta.json()
-    // const usuario = usuarios.find(usuario => 
-    //                                 usuario.Email === tentativaLogin.Email 
-    //                                 && usuario.Senha === tentativaLogin.Senha)
-    
-    // return usuario
 }
