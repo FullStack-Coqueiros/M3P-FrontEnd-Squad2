@@ -71,7 +71,7 @@ Json-server..</p>
 <p>- GitHub</p>
 
 
-### Rodando a API
+### Rodando o aplicativo
 #### Clone este repositório
 $ git clone <https://github.com/FullStack-Coqueiros/M3P-FrontEnd-Squad2.git>
 
