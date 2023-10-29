@@ -38,9 +38,6 @@ function Login() {
     navigate('/dashboard')
   }
 
-  function onSubmit() {
-    handleSubmit(criarUsuario);
-  }
 
   return (
     <div>
@@ -50,7 +47,7 @@ function Login() {
         <div className="container mt-5">
         <img  src="/src/assets/images/logo_mc.jpeg" class="rounded float-left" alt="Logo" />
           <h2>Login</h2>
-        <form className="form-login" onSubmit={onSubmit}>
+        <form className="form-login" onSubmit={handleSubmit(criarUsuario)}>
          
         
           <Form.Group className="col-8" controlId="Email">
