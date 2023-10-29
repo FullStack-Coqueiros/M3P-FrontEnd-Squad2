@@ -4,6 +4,7 @@ import { object, string } from "yup";
 import { Form, Button, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { CheckLogin } from "../../services/Login";
 
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -22,26 +23,33 @@ function Login() {
   const navigate = useNavigate();
   
   const {
-  register,
-  handleSubmit,
-  formState: { errors },
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues, 
   } = useForm({ resolver: yupResolver(schema) });
 
+  const criarUsuario = async () => {
+    const { email, senha } = getValues();
+    
+    const tentativaLogin = {
+      Email: email,
+      Senha: senha,
+      Logado: false
+    };
 
-  const criarUsuario = async (event) => {
-    event.preventDefault()
-    const tentativaLogin = {"Email": Email, "Senha" : Senha, "Logado": false, "Timestamp" : 0 }
-    const resposta = await CheckLogin(tentativaLogin);
-    if (!resposta) {
-      return Alert.alert("usuário não encontrado");
+    try {
+      const resposta = await CheckLogin(tentativaLogin);
+      if (!resposta) {
+        alert("Usuário não encontrado");
+      } else {
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      alert('Erro ao fazer login:', error.message);
     }
-    navigate('/dashboard')
   }
-
-  function onSubmit() {
-    handleSubmit(criarUsuario);
-  }
-
+  
   return (
     <div>
       <Navbar />
@@ -50,7 +58,7 @@ function Login() {
         <div className="container mt-5">
         <img  src="/src/assets/images/logo_mc.jpeg" class="rounded float-left" alt="Logo" />
           <h2>Login</h2>
-        <form className="form-login" onSubmit={onSubmit}>
+        <form className="form-login" onSubmit={handleSubmit(criarUsuario)}>
          
         
           <Form.Group className="col-8" controlId="Email">
