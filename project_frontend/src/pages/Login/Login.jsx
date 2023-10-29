@@ -5,6 +5,9 @@ import { Form, Button, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { CheckLogin } from "../../services/Login";
+import {AppContext} from '../../context/AppProvider'
+import { useContext } from "react";
+
 
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -21,6 +24,7 @@ const schema = object({
 
 function Login() {
   const navigate = useNavigate();
+  const {token, setToken} = useContext(AppContext);
   
   const {
     register,
@@ -31,7 +35,7 @@ function Login() {
 
   const criarUsuario = async () => {
     const { email, senha } = getValues();
-    
+    console.log("Criar usuario")
     const tentativaLogin = {
       Email: email,
       Senha: senha,
@@ -40,9 +44,10 @@ function Login() {
 
     try {
       const resposta = await CheckLogin(tentativaLogin);
-      if (resposta === null) {
+      if (resposta == null) {
         alert("Usuário não encontrado");
       } else {
+        setToken(token);
         navigate('/dashboard');
       }
     } catch (error) {

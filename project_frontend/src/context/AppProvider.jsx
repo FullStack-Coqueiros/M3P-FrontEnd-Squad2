@@ -252,7 +252,6 @@ return (
       medicamentos,
       exercicios,
       token,
-      login,
       setToken,
       setUsuarios,
       setPacientes,
