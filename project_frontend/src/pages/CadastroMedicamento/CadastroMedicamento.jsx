@@ -10,22 +10,23 @@ function CadastroMedicamentos() {
     const { handleAdicionarMedicamento, handleDeletarMedicamento, pacientes, setPacientes, carregarPacientes } = useAppContext();
     const [isSaved, setIsSaved] = useState(false);
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const [editar, setEditar] = useState(true);
+    const [deletar, setDeletar] = useState(true);
 
     useEffect(() => {
-        
+
         carregarPacientes();
     }, []);
 
     function createMedicamento(medicamento) {
 
         const novoMedicamento = {
-            ...medicamento, 
+            ...medicamento,
             pacienteId: Number(medicamento.pacienteId)
-        
+
         }
-        
+
 
         handleAdicionarMedicamento(novoMedicamento);
         setIsSaved(true);
@@ -36,9 +37,9 @@ function CadastroMedicamentos() {
         // Imprimir os dados no console
         console.log('Dados do medicamento para o paciente:', medicamento);
 
-        
+
     }
-    
+
     const deletarMedicamento = (medicamentoId) => {
 
         const medicamentoParaDeletar = medicamentos.find((medicamento) => medicamento.id === medicamentoId);
@@ -132,21 +133,21 @@ function CadastroMedicamentos() {
                             </Col>
                         </Row>
 
-                        
-                            <Col>
-                                <Form.Group name="Unidade">
-                                    <Form.Label>Unidade:</Form.Label>
-                                    <Form.Select {...register("unidade", { required: true })} >
-                                        <option>Selecione</option>
-                                        <option>Mg</option>
-                                        <option>Mgc</option>
-                                        <option>G</option>
-                                        <option>Ml</option>
-                                        <option>%</option>
-                                    </Form.Select>
-                                </Form.Group>
-                            </Col>
-                        
+
+                        <Col>
+                            <Form.Group name="Unidade">
+                                <Form.Label>Unidade:</Form.Label>
+                                <Form.Select {...register("unidade", { required: true })} >
+                                    <option>Selecione</option>
+                                    <option>Mg</option>
+                                    <option>Mgc</option>
+                                    <option>G</option>
+                                    <option>Ml</option>
+                                    <option>%</option>
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
+
 
                         <Row>
                             <Col>
@@ -165,8 +166,15 @@ function CadastroMedicamentos() {
                         </Row>
                         <div >
                             <Button className="btn-salvar" type="submit" > Salvar </Button>
-                            {/* <Button className="btn-editar" type="button" disable={!handleAdicionarDieta} > Editar </Button>
-                            <Button className="btn-reset" type="reset" disable={!handleAdicionarDieta} > Deletar </Button> */}
+                        </div>
+
+                        <div>
+                            <Button disabled={deletar} onClick={(e) => handleDeleteDieta(e, dietas.id)}>
+                                Excluir
+                            </Button>
+                            <Button disabled={editar} onClick={(e) => handleEditarDieta(e)}>
+                                Editar
+                            </Button>
                         </div>
                     </form>
 
