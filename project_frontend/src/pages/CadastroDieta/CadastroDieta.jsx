@@ -5,9 +5,11 @@ import { useAppContext } from "../../context/useAppContext";
 import Sidebar from "../../components/SidebarComponents/Sidebar";
 
 function CadastroDieta() {
-  const { handleAdicionarDieta, pacientes, carregarPacientes } = useAppContext();
+  const { handleAdicionarDieta, pacientes, carregarPacientes, dietas, setDietas } = useAppContext();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const [editar, setEditar] = useState(true);
+  const [deletar, setDeletar] = useState(true);
 
   useEffect(() => {
     carregarPacientes();
@@ -27,6 +29,48 @@ function CadastroDieta() {
     console.log('Dados da Dieta para o paciente:', dieta);
   }
 
+  const handleDeleteDieta = async (e, dietaId) => {
+    e.preventDefault();
+    
+    window.confirm("Tem certeza que deseja excluir a dieta?") &&
+      apiClient
+        .delete(`/dieta/${dietaId}`)
+        .then(() => {
+          const novasDietas = dietas.filter((dieta) => dieta.id !== dietaId);
+          setDietas(novasDietas);
+          alert("Dieta excluída com sucesso!");
+        })
+        .catch((erro) => console.error(erro));
+  };
+
+  const handleEditarDieta = async (e) => {
+    e.preventDefault();
+
+    window.confirm("Tem certeza que deseja editar dieta?") &&
+      apiClient
+        .put(`/dietas/${id}`, dietas)
+        .then(() => {
+          window.alert("Dieta editada com sucesso!");
+          navigate("/");
+        })
+        .catch((erro) => console.error(erro));
+  };
+
+  const handlePaciente = async (e, paciente, dietas) => {
+    e.preventDefault();
+
+    const novasDietas = dietas.filter((dieta) => dieta.pacienteId == paciente.Id);
+    if(novasDietas == null || novasDietas.length == 0 ) {
+      setEditar(true);
+      setDeletar(true);
+      }
+    else {
+      dietas = novasDietas[0];
+      setEditar(false);
+      setDeletar(false);
+    }
+  }
+
   return (
     <div>
       <Sidebar />
@@ -42,7 +86,7 @@ function CadastroDieta() {
                     {...register("pacienteId", { required: true })}
                   >
                     {pacientes.map((paciente) => (
-                      <option key={paciente.id} value={paciente.id}>
+                      <option key={paciente.id} value={paciente.id} onChange={(e) => handlePaciente(e, paciente)}>
                         {paciente.nomeCompleto}
                       </option>
                     ))}
@@ -139,6 +183,15 @@ function CadastroDieta() {
             <div>
               <Button className="btn-salvar" type="submit">
                 Salvar
+              </Button>
+            </div>
+
+            <div>
+              <Button disabled={deletar} onClick={(e) => handleDeleteDieta(e, dietas.id)}>
+                Excluir
+              </Button>
+              <Button disabled={editar} onClick={(e) => handleEditarDieta(e)}>
+                Editar
               </Button>
             </div>
           </form>
