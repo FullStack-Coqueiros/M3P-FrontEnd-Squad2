@@ -72,8 +72,15 @@ Json-server..</p>
 
 
 ### Rodando o aplicativo
-#### Clone este repositório
-$ git clone <https://github.com/FullStack-Coqueiros/M3P-FrontEnd-Squad2.git>
+<p>Primeiro deve-se rodar o back end para depois rodas o front end.</p>
+#### Clone este repositório (BackEnd)
+$ git clone https://github.com/FullStack-Coqueiros/M3P-BackEnd-Squad2.git
+<p>Abra a solução MedicalCare.Sln no Microsoft Visual Studio.</p>
+<p>Execute a solução.</p>
+#### Clone este repositório (FrontEnd)
+$ git clone https://github.com/FullStack-Coqueiros/M3P-FrontEnd-Squad2.git
+<p>Abra a pasta project_frontend no Visual Studio Code</p>
+<p>Abra uma bash no terminal e execute o comando npm run dev</p>
 
 ### Melhorias que podem ser aplicadas
 <p> O sistema pode ser ampliado para outros recursos que devem ser administrados em postos de saúde ou clinicas. Podem ser melhor administrados os funcionários, controle de estoque, serviços terceirizados, pagamentos dos médicos, etc...</p>
