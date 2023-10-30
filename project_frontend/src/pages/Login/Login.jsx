@@ -47,7 +47,8 @@ function Login() {
       if (resposta == null) {
         alert("Usuário não encontrado");
       } else {
-        setToken(token);
+        console.log(resposta);
+        setToken(resposta);
         navigate('/dashboard');
       }
     } catch (error) {

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Card, Col, Button, Container, Row, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { IoPersonCircleOutline } from 'react-icons/io5';
+import { IoPersonCircleOutline } from "react-icons/io5";
+import { AppContext } from "../../context/AppProvider";
+import { useContext } from "react";
 
 import Sidebar from "../../components/SidebarComponents/Sidebar";
 import DashboardCard from "../../components/DashboardComponets/DashboardCard";
 
-import { URL_API } from "../../services";
-
-import "./dashboardPage.css"
+import "./dashboardPage.css";
 
 function Dashboard() {
   const [usuarios, setUsuarios] = useState([]);
@@ -21,76 +21,151 @@ function Dashboard() {
   const [termoPesquisa, setTermoPesquisa] = useState("");
   const [termoPesquisaUsuario, setTermoPesquisaUsuario] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const { token, setToken } = useContext(AppContext);
+  const URL_API = "https://localhost:7083/api";
 
   useEffect(() => {
     // Lógica para determinar se o usuário é um administrador
     const IsAdmin = true; // ou false;
-
     setIsAdmin(IsAdmin);
+    console.log(token);
 
     console.group(IsAdmin ? "Admin Logs" : "Não-Admin Logs");
-    console.log(IsAdmin ? "Usuário é um administrador." : "Usuário não é um administrador.");
+    console.log(
+      IsAdmin
+        ? "Usuário é um administrador."
+        : "Usuário não é um administrador."
+    );
     console.groupEnd();
+    console.log(token);
 
-    fetch(`${URL_API}/usuarios`)
-      .then(response => response.json())
-      .then(data => setUsuarios(data))
-      .catch(error => console.error('Erro ao buscar dados:', error));
+    fetch(`${URL_API}/Usuario`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setUsuarios(data))
+      .catch((error) => console.log("Erro ao buscar dados:", error));
 
+    fetch(`${URL_API}/Paciente`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setPacientes(data))
+      .catch((error) => console.log("Erro ao buscar dados:", error));
 
-    fetch(`${URL_API}/pacientes`)
-      .then(response => response.json())
-      .then(data => setPacientes(data))
-      .catch(error => console.error('Erro ao buscar dados:', error));
+    fetch(`${URL_API}/Consulta`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setConsultas(data))
+      .catch((error) => console.log("Erro ao buscar dados:", error));
 
-    fetch(`${URL_API}/consultas`)
-      .then(response => response.json())
-      .then(data => setConsultas(data))
-      .catch(error => console.error('Erro ao buscar dados:', error));
+    fetch(`${URL_API}/Exame`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setExames(data))
+      .catch((error) => console.log("Erro ao buscar dados:", error));
 
-    fetch(`${URL_API}/exames`)
-      .then(response => response.json())
-      .then(data => setExames(data))
-      .catch(error => console.error('Erro ao buscar dados:', error));
+    fetch("https://localhost:7083/apiMedicamento", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setMedicamento(data))
+      .catch((error) => console.log("Erro ao buscar dados:", error));
 
-    fetch(`${URL_API}/medicamentos`)
-      .then(response => response.json())
-      .then(data => setMedicamento(data))
-      .catch(error => console.error('Erro ao buscar dados:', error));
+    fetch(`${URL_API}/Dieta`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setDietas(data))
+      .catch((error) => console.log("Erro ao buscar dados:", error));
 
-    fetch(`${URL_API}/dietas`)
-      .then(response => response.json())
-      .then(data => setDietas(data))
-      .catch(error => console.error('Erro ao buscar dados:', error));
-
-    fetch(`${URL_API}/exercicios`)
-      .then(response => response.json())
-      .then(data => setExercicios(data))
-      .catch(error => console.error('Erro ao buscar dados:', error));
+    fetch(`${URL_API}/Exercicio`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setExercicios(data))
+      .catch((error) => console.log("Erro ao buscar dados:", error));
   }, []);
 
   return (
     <>
-
       <Sidebar />
       <Container className="dashboard-container">
-
         {isAdmin ? (
           // Se for administrador
           <>
             {/* <h1>Estatísticas do Sistema</h1> */}
-            <DashboardCard estatisticas={[
-              { titulo: "Usuários Cadastrados", quantidade: usuarios.length, color: "#192fac" },
-              { titulo: "Pacientes Cadastrados", quantidade: pacientes.length, color: "#64a1e7" },
-              { titulo: "Consultas Realizadas", quantidade: consultas.length, color: "#9bc6e2" },
-              { titulo: "Exames Realizados", quantidade: exames.length, color: "#88def3" },
-              { titulo: "Dietas Realizadas", quantidade: dietas.length, color: "#23dada" },
-              { titulo: "Medicamentos prescritos", quantidade: medicamento.length, color: "#1dd1aa" },
-              { titulo: "Exercícios solicitados", quantidade: exercicios.length, color: "#33ff66" },
-            ]} />
+            <DashboardCard
+              estatisticas={[
+                {
+                  titulo: "Usuários Cadastrados",
+                  quantidade: usuarios.length,
+                  color: "#192fac",
+                },
+                {
+                  titulo: "Pacientes Cadastrados",
+                  quantidade: pacientes.length,
+                  color: "#64a1e7",
+                },
+                {
+                  titulo: "Consultas Realizadas",
+                  quantidade: consultas.length,
+                  color: "#9bc6e2",
+                },
+                {
+                  titulo: "Exames Realizados",
+                  quantidade: exames.length,
+                  color: "#88def3",
+                },
+                {
+                  titulo: "Dietas Realizadas",
+                  quantidade: dietas.length,
+                  color: "#23dada",
+                },
+                {
+                  titulo: "Medicamentos prescritos",
+                  quantidade: medicamento.length,
+                  color: "#1dd1aa",
+                },
+                {
+                  titulo: "Exercícios solicitados",
+                  quantidade: exercicios.length,
+                  color: "#33ff66",
+                },
+              ]}
+            />
 
             <h1 className="custom-h1">Pesquise o usuário</h1>
-
 
             <Form.Control
               className="pesquisa"
@@ -101,22 +176,25 @@ function Dashboard() {
               onChange={(e) => setTermoPesquisaUsuario(e.target.value)}
             />
 
-
             <Row className="cards d-flex justify-content-center">
               {usuarios
                 .filter((usuario) => {
                   const termoLowerCase = termoPesquisaUsuario.toLowerCase();
                   return (
-                    usuario.nome.toLowerCase().includes(termoLowerCase) ||
-                    usuario.cpf.includes(termoPesquisaUsuario) ||
-                    usuario.telefone.includes(termoPesquisaUsuario) ||
-                    usuario.email.toLowerCase().includes(termoLowerCase)
+                    usuario.NomeCompleto.toLowerCase().includes(termoLowerCase) ||
+                    usuario.Cpf.includes(termoPesquisaUsuario) ||
+                    usuario.Telefone.includes(termoPesquisaUsuario) ||
+                    usuario.Email.toLowerCase().includes(termoLowerCase)
                   );
                 })
                 .map((usuario, index) => (
                   <Col key={index} className="cards">
                     <Card className="custom-card mb-4">
-                      <IoPersonCircleOutline className="foto mt-3" size={150} color="#3742a7" />
+                      <IoPersonCircleOutline
+                        className="foto mt-3"
+                        size={150}
+                        color="#3742a7"
+                      />
                       <Card.Body className="mt-3">
                         <Card.Title className="custom-card-title">
                           <div>{usuario.nome}</div>
@@ -136,7 +214,6 @@ function Dashboard() {
 
             <h1 className="custom-h1">Pesquise o Paciente</h1>
 
-
             <Form.Control
               className="pesquisa"
               id="inputPesquisaDashboard"
@@ -146,13 +223,16 @@ function Dashboard() {
               onChange={(e) => setTermoPesquisa(e.target.value)}
             />
 
-
             <Row className="cards d-flex justify-content-center">
               {pacientes
                 .filter((paciente) => {
                   const termoLowerCase = termoPesquisa.toLowerCase();
                   return (
-                    paciente && paciente.nomeCompleto && paciente.nomeCompleto.toLowerCase().includes(termoLowerCase) ||
+                    (paciente &&
+                      paciente.nomeCompleto &&
+                      paciente.nomeCompleto
+                        .toLowerCase()
+                        .includes(termoLowerCase)) ||
                     paciente.cpf.includes(termoPesquisa) ||
                     paciente.telefone.includes(termoPesquisa) ||
                     paciente.email.toLowerCase().includes(termoLowerCase)
@@ -161,7 +241,11 @@ function Dashboard() {
                 .map((paciente) => (
                   <Col key={paciente.id} className="cards">
                     <Card className="custom-card mb-4">
-                      <IoPersonCircleOutline className="foto mt-3" size={150} color="#3742a7" />
+                      <IoPersonCircleOutline
+                        className="foto mt-3"
+                        size={150}
+                        color="#3742a7"
+                      />
                       <Card.Body className="mt-10">
                         <Card.Title className="custom-card-title">
                           <div>{paciente.nomeCompleto}</div>
@@ -170,7 +254,7 @@ function Dashboard() {
                           <div>Email: {paciente.email}</div>
                         </Card.Title>
                       </Card.Body>
-                      <Col >
+                      <Col>
                         <Link to={`/prontuario/${paciente.id}`}>
                           <Button className="btn-ver">Ver mais</Button>
                         </Link>
@@ -180,7 +264,6 @@ function Dashboard() {
                 ))}
             </Row>
           </>
-
         ) : (
           // Se não for administrador
           <>
@@ -198,7 +281,11 @@ function Dashboard() {
                 .filter((paciente) => {
                   const termoLowerCase = termoPesquisa.toLowerCase();
                   return (
-                    paciente && paciente.nomeCompleto && paciente.nomeCompleto.toLowerCase().includes(termoLowerCase) ||
+                    (paciente &&
+                      paciente.nomeCompleto &&
+                      paciente.nomeCompleto
+                        .toLowerCase()
+                        .includes(termoLowerCase)) ||
                     paciente.cpf.includes(termoPesquisa) ||
                     paciente.telefone.includes(termoPesquisa) ||
                     paciente.email.toLowerCase().includes(termoLowerCase)
@@ -207,7 +294,11 @@ function Dashboard() {
                 .map((paciente) => (
                   <Col key={paciente.id} className="cards">
                     <Card className="custom-card mb-4">
-                      <IoPersonCircleOutline className="foto mt-3" size={150} color="#3742a7" />
+                      <IoPersonCircleOutline
+                        className="foto mt-3"
+                        size={150}
+                        color="#3742a7"
+                      />
                       <Card.Body className="mt-3">
                         <Card.Title className="custom-card-title">
                           <div>{paciente.nomeCompleto}</div>
