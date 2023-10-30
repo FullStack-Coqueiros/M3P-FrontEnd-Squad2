@@ -252,6 +252,17 @@
       "dosagem": "werret wret wert ",
       "statusSistema": "Ativo",
       "id": 6
+    },
+    {
+      "pacienteId": 2,
+      "consulta": "Inflamação no dedinho do pé",
+      "dataConsulta": "2023-10-30",
+      "horaConsulta": "20:30",
+      "descricao": "asdf sdf asd f asdf asd fas df ",
+      "medicacao": "Gelo 3  vezes ao dia durante 1 semana",
+      "dosagem": "Não bater o dedinho na mesa novamente.",
+      "statusSistema": "Ativo",
+      "id": 7
     }
   ],
   "dietas": [

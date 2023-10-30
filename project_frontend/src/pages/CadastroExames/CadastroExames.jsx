@@ -15,8 +15,9 @@ import { URL_API } from "../../services";
 function CadastroExames() {
   const { handleAdicionarExame, pacientes, carregarPacientes } = useAppContext();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const [editar, setEditar] = useState(true);
+  const [deletar, setDeletar] = useState(true);
 
   useEffect(() => {
     carregarPacientes();
@@ -35,6 +36,50 @@ function CadastroExames() {
     // Imprimir os dados no console
     console.log('Dados do Exame para o paciente:', exame);
   }
+
+  const handleDeleteExame = async (e, ExameId) => {
+    e.preventDefault();
+    
+    window.confirm("Tem certeza que deseja excluir o exame?") &&
+      apiClient
+        .delete(`/exame/${exameId}`)
+        .then(() => {
+          const novosExames = exames.filter((exame) => exame.id !== exameId);
+          setDietas(novosExames);
+          alert("Exame excluído com sucesso!");
+        })
+        .catch((erro) => console.error(erro));
+  };
+
+  
+  const handleEditarExame = async (e) => {
+    e.preventDefault();
+
+    window.confirm("Tem certeza que deseja editar exame?") &&
+      apiClient
+        .put(`/exames/${id}`, exames)
+        .then(() => {
+          window.alert("Exame editado com sucesso!");
+          navigate("/");
+        })
+        .catch((erro) => console.error(erro));
+  };
+
+  const handlePaciente = async (e, paciente, exames) => {
+    e.preventDefault();
+
+    const novosExames = exames.filter((exame) => exame.pacienteId == paciente.Id);
+    if(novosExames == null || novosExames.length == 0 ) {
+      setEditar(true);
+      setDeletar(true);
+      }
+    else {
+      exames = novosExames[0];
+      setEditar(false);
+      setDeletar(false);
+    }
+  }
+
 
   return (
     <>
@@ -196,6 +241,18 @@ function CadastroExames() {
             <div >
               <Button className="btn-salvar" type="submit" > Salvar </Button>
             </div>
+            <div>
+              <Button disabled={deletar} onClick={(e) => handleDeleteExame(e, exames.id)}>
+                Excluir
+              </Button>
+              <Button disabled={editar} onClick={(e) => handleEditarExame(e)}>
+                Editar
+              </Button>
+            </div>
+
+
+
+
           </form>
           {showSuccessAlert && (
             <div className="alert alert-success mt-3">

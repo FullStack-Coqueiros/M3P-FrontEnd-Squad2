@@ -54,8 +54,8 @@ function Login() {
     } catch (error) {
       alert('Erro ao fazer login:', error.message);
     }
+
   }
-  
   return (
     <div>
       <Navbar />

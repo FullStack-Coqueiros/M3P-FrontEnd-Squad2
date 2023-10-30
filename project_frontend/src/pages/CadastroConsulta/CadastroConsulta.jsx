@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-
 import { useAppContext } from "../../context/useAppContext";
-
 import Sidebar from "../../components/SidebarComponents/Sidebar";
-
 import { URL_API } from '../../services';
-
 import "../../assets/index.css"
 
 
 function CadastroConsulta() {
 
-  const { handleAdicionarConsulta, pacientes, carregarPacientes } = useAppContext();
-  const [isSaved, setIsSaved] = useState(false)
+  const { handleAdicionarConsulta, pacientes, carregarPacientes, consultas, setConsultas } = useAppContext();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-
+  const [isSaved, setIsSaved] = useState(false)
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const [editar, setEditar] = useState(true);
+  const [deletar, setDeletar] = useState(true);
 
   useEffect(() => {
     carregarPacientes();
@@ -38,16 +35,59 @@ function CadastroConsulta() {
     console.log('Dados da Consulta para o paciente:', consulta);
   }
 
+  const handleDeleteConsulta = async (e, consultaId) => {
+    e.preventDefault();
+    
+    window.confirm("Tem certeza que deseja excluir a consulta?") &&
+      apiClient
+        .delete(`/consulta/${consultaId}`)
+        .then(() => {
+          const novasConsultas = consultas.filter((consulta) => consulta.id !== consultaId);
+          setConsultas(novasConsultas);
+          alert("Consulta excluída com sucesso!");
+        })
+        .catch((erro) => console.error(erro));
+  };
+
+  const handleEditarConsulta = async (e) => {
+    e.preventDefault();
+
+    window.confirm("Tem certeza que deseja editar consulta?") &&
+      apiClient
+        .put(`/consultas/${id}`, consultas)
+        .then(() => {
+          window.alert("Consulta editada com sucesso!");
+          navigate("/");
+        })
+        .catch((erro) => console.error(erro));
+  };
+
+  
+  const handlePaciente = async (e, paciente, consultas) => {
+    e.preventDefault();
+
+    const novasConsultas = consultas.filter((consulta) => consulta.pacienteId == paciente.Id);
+    if(novasConsultas == null || novasConsultas.length == 0 ) {
+      setEditar(true);
+      setDeletar(true);
+      }
+    else {
+      consultas = novasConsultas[0];
+      setEditar(false);
+      setDeletar(false);
+    }
+  }
+
   return (
     <>
       <Sidebar />
       <Container>
-        <section>
+        <section className='form-med'>
           <form onSubmit={handleSubmit(createConsulta)}>
             <h2>Cadastro Consultas</h2>
             <Row>
               <Col>
-              <Form.Group controlId="pacienteId">
+                <Form.Group controlId="pacienteId">
                     <Form.Label>Selecione o paciente:</Form.Label>
                     <Form.Select
                       {...register("pacienteId", { required: true })}
@@ -62,9 +102,10 @@ function CadastroConsulta() {
                     {errors.pacienteId && (
                       <span className="error-message">Campo Obrigatório</span>
                     )}
-                  </Form.Group>
-
-                <Form.Group name="consulta">
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group controlId="consulta">
                   <Form.Label>Motivo da Consulta</Form.Label>
                   <Form.Control
                     type="text"
@@ -173,10 +214,19 @@ function CadastroConsulta() {
                     )}
                   </Form.Group>
                 </Col>
+
               </Col>
             </Row>
             <div >
               <Button className="btn-salvar" type="submit" > Salvar </Button>
+            </div>
+            <div>
+              <Button disabled={deletar} onClick={(e) => handleDeleteConsulta(e, consultas.id)}>
+                Excluir
+              </Button>
+              <Button disabled={editar} onClick={(e) => handleEditarConsulta(e)}>
+                Editar
+              </Button>
             </div>
           </form>
           {showSuccessAlert && (<div className="alert alert-success mt-3"> Consulta cadastrada com sucesso! </div>)}

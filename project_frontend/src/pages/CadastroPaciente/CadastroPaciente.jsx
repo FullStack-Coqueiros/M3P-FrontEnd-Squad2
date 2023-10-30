@@ -8,6 +8,8 @@ import Sidebar from "../../components/SidebarComponents/Sidebar";
 function CadastroPaciente() {
   const { handleAdicionarPaciente } = useAppContext();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [editar, setEditar] = useState(true);
+  const [deletar, setDeletar] = useState(true);
 
   const {
     register,
@@ -55,6 +57,48 @@ function CadastroPaciente() {
       console.error("Erro ao cadastrar paciente:", error);
     }
   };
+
+  const handleDeletePaciente = async (e, pacienteId) => {
+    e.preventDefault();
+    
+    window.confirm("Tem certeza que deseja excluir o paciente?") &&
+      apiClient
+        .delete(`/paciente/${pacienteId}`)
+        .then(() => {
+          const novosPacientes = pacientes.filter((paciente) => paciente.id !== pacienteId);
+          setDietas(novosPacientes);
+          alert("Paciente excluído com sucesso!");
+        })
+        .catch((erro) => console.error(erro));
+  };
+
+  const handleEditarPaciente = async (e) => {
+    e.preventDefault();
+
+    window.confirm("Tem certeza que deseja editar paciente?") &&
+      apiClient
+        .put(`/pacientes/${id}`, pacientes)
+        .then(() => {
+          window.alert("Paciente editado com sucesso!");
+          navigate("/");
+        })
+        .catch((erro) => console.error(erro));
+  };
+
+  const handlePaciente = async (e, paciente, pacientes) => {
+    e.preventDefault();
+
+    const novosPacientes = pacientes.filter((paciente) => paciente.pacienteId == paciente.Id);
+    if(novosPacientes == null || novosPacientes.length == 0 ) {
+      setEditar(true);
+      setDeletar(true);
+      }
+    else {
+      pacientes = novosPacientes[0];
+      setEditar(false);
+      setDeletar(false);
+    }
+  }
 
   return (
     <div>
@@ -444,6 +488,15 @@ function CadastroPaciente() {
               <div>
                 <Button className="btn-salvar" type="submit">
                   Salvar
+                </Button>
+              </div>
+
+              <div>
+                <Button disabled={deletar} onClick={(e) => handleDeletePaciente(e, dietas.id)}>
+                  Excluir
+                </Button>
+                <Button disabled={editar} onClick={(e) => handleEditarPaciente(e)}>
+                  Editar
                 </Button>
               </div>
             </form>
