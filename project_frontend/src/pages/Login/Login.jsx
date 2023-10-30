@@ -4,6 +4,10 @@ import { object, string } from "yup";
 import { Form, Button, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { CheckLogin } from "../../services/Login";
+import {AppContext} from '../../context/AppProvider'
+import { useContext } from "react";
+
 
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -20,25 +24,38 @@ const schema = object({
 
 function Login() {
   const navigate = useNavigate();
+  const {token, setToken} = useContext(AppContext);
   
   const {
-  register,
-  handleSubmit,
-  formState: { errors },
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues, 
   } = useForm({ resolver: yupResolver(schema) });
 
+  const criarUsuario = async () => {
+    const { email, senha } = getValues();
+    console.log("Criar usuario")
+    const tentativaLogin = {
+      Email: email,
+      Senha: senha,
+      Logado: false
+    };
 
-  const criarUsuario = async (event) => {
-    event.preventDefault()
-    const tentativaLogin = {"Email": Email, "Senha" : Senha, "Logado": false, "Timestamp" : 0 }
-    const resposta = await CheckLogin(tentativaLogin);
-    if (!resposta) {
-      return Alert.alert("usuário não encontrado");
+    try {
+      const resposta = await CheckLogin(tentativaLogin);
+      if (resposta == null) {
+        alert("Usuário não encontrado");
+      } else {
+        console.log(resposta);
+        setToken(resposta);
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      alert('Erro ao fazer login:', error.message);
     }
-    navigate('/dashboard')
+
   }
-
-
   return (
     <div>
       <Navbar />
