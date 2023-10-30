@@ -9,7 +9,7 @@ import DashboardCard from "../../components/DashboardComponets/DashboardCard";
 import { URL_API } from "../../services";
 
 import "./dashboardPage.css"
-
+ 
 function Dashboard() {
   const [usuarios, setUsuarios] = useState([]);
   const [pacientes, setPacientes] = useState([]);
